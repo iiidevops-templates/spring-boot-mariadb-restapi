@@ -10,17 +10,17 @@ services:
       - db
     environment:
       db_name: springboot_demo
-      db_username: postgres
+      db_username: root
       db_password: IIIdevops123!
       db_host: db
     ports:
-      - 5000
+      - 8080
   db:
-    image: bitnami/postgresql:11-debian-10
+    image: 'bitnami/mariadb:10.5-debian-10'
     restart: always
     environment:
-      POSTGRESQL_DATABASE: springboot_demo
-      POSTGRESQL_PASSWORD: IIIdevops123!
+      MARIADB_DATABASE: springboot_demo
+      MARIADB_ROOT_PASSWORD: IIIdevops123!
     volumes:
       - ./db:/docker-entrypoint-initdb.d:rw
   adminer:
@@ -34,7 +34,7 @@ services:
   swaggereditor:
     image: swaggerapi/swagger-editor
     ports:
-      - 9081:8080
+      - 8080
     volumes:
       - ./app:/tmp
     environment:
@@ -52,3 +52,15 @@ services:
       - "--reporters"
       - "junit"
       - "--reporter-junit-export=/etc/postman/newman-report.xml"
+  # owasp
+  owasp:
+    image: owasp/zap2docker-stable
+    depends_on:
+      - web
+    volumes:
+      - ./app:/zap/wrk/:rw
+    tty: true
+    command: bash -c "
+        sleep 30 && 
+        zap-full-scan.py -t http://web:8080 -w owasp-report.md -g gen.conf
+      "
