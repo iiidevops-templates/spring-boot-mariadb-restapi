@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="Django Todo Postman Test" tests="1" time="0.000">
-  <testsuite name="index" id="86826a63-2deb-49d9-8fc3-650924d85dcc" timestamp="2021-03-09T06:23:25.943Z" tests="2" failures="2" errors="1" time="0.000">
+  <testsuite name="index" id="868691f1-a17d-4fbb-b729-24009993aa67" timestamp="2021-03-09T06:37:25.074Z" tests="2" failures="2" errors="1" time="0.000">
     <system-err><![CDATA[Iteration: 0
 RequestError: Error: connect ECONNREFUSED 172.23.0.5:5000
     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1107:14)

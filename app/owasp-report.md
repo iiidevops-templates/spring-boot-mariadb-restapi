@@ -1,14 +1,14 @@
 
 # ZAP Scanning Report
 
-Generated on Tue, 9 Mar 2021 06:24:42
+Generated on Tue, 9 Mar 2021 06:38:41
 
 
 ## Summary of Alerts
 
 | Risk Level | Number of Alerts |
 | --- | --- |
-| High | 0 |
+| High | 1 |
 | Medium | 1 |
 | Low | 2 |
 | Informational | 1 |
@@ -17,13 +17,58 @@ Generated on Tue, 9 Mar 2021 06:24:42
 
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- | 
+| PII Disclosure | High | 1 | 
 | Buffer Overflow | Medium | 2 | 
 | A Server Error response code was returned by the server | Low | 2 | 
 | X-Content-Type-Options Header Missing | Low | 2 | 
-| A Client Error response code was returned by the server | Informational | 18 | 
+| A Client Error response code was returned by the server | Informational | 20 | 
 
 ## Alert Detail
 
+
+  
+  
+  
+  
+### PII Disclosure
+##### High (High)
+  
+  
+  
+  
+#### Description
+<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>
+  
+  
+  
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `5778739446134781672`
+  
+  
+  
+  
+Instances: 1
+  
+### Solution
+<p></p>
+  
+### Other information
+<p>Credit Card Type detected: Maestro</p><p>Bank Identification Number: 577873</p><p>Brand: MAESTRO</p><p>Category: STANDARD</p><p>Issuer: </p>
+  
+### Reference
+* 
+
+  
+#### CWE Id : 359
+  
+#### WASC Id : 13
+  
+#### Source ID : 3
 
   
   
@@ -40,30 +85,7 @@ Generated on Tue, 9 Mar 2021 06:24:42
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees](http://10.20.0.78:10080/api/v1/employees)
-  
-  
-  * Method: `POST`
-  
-  
-  * Parameter: `lastName`
-  
-  
-  * Evidence: `POST http://10.20.0.78:10080/api/v1/employees HTTP/1.1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
-Pragma: no-cache
-Cache-Control: no-cache
-Content-Length: 2166
-Accept: */*
-Content-Type: application/json
-Host: 10.20.0.78:10080
-
-`
-  
-  
-  
-  
-* URL: [http://10.20.0.78:10080/api/v1/employees](http://10.20.0.78:10080/api/v1/employees)
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
   
   
   * Method: `POST`
@@ -72,14 +94,37 @@ Host: 10.20.0.78:10080
   * Parameter: `emailId`
   
   
-  * Evidence: `POST http://10.20.0.78:10080/api/v1/employees HTTP/1.1
+  * Evidence: `POST http://web:8080/api/v1/employees HTTP/1.1
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
 Pragma: no-cache
 Cache-Control: no-cache
 Content-Length: 2149
 Accept: */*
 Content-Type: application/json
-Host: 10.20.0.78:10080
+Host: web:8080
+
+`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
+  
+  
+  * Method: `POST`
+  
+  
+  * Parameter: `lastName`
+  
+  
+  * Evidence: `POST http://web:8080/api/v1/employees HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
+Pragma: no-cache
+Cache-Control: no-cache
+Content-Length: 2166
+Accept: */*
+Content-Type: application/json
+Host: web:8080
 
 `
   
@@ -119,7 +164,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees/.htaccess](http://10.20.0.78:10080/api/v1/employees/.htaccess)
+* URL: [http://web:8080/api/v1/employees/.htaccess](http://web:8080/api/v1/employees/.htaccess)
   
   
   * Method: `GET`
@@ -130,7 +175,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees](http://10.20.0.78:10080/api/v1/employees)
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
   
   
   * Method: `POST`
@@ -171,10 +216,10 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees](http://10.20.0.78:10080/api/v1/employees)
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
   
   
-  * Method: `GET`
+  * Method: `POST`
   
   
   * Parameter: `X-Content-Type-Options`
@@ -182,10 +227,10 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees](http://10.20.0.78:10080/api/v1/employees)
+* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
   
   
-  * Method: `POST`
+  * Method: `GET`
   
   
   * Parameter: `X-Content-Type-Options`
@@ -227,7 +272,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080](http://10.20.0.78:10080)
+* URL: [http://web:8080/api/v1/2020665661554004060](http://web:8080/api/v1/2020665661554004060)
   
   
   * Method: `GET`
@@ -238,7 +283,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/.htaccess](http://10.20.0.78:10080/.htaccess)
+* URL: [http://web:8080/api/v1/.htaccess](http://web:8080/api/v1/.htaccess)
   
   
   * Method: `GET`
@@ -249,7 +294,51 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees/10](http://10.20.0.78:10080/api/v1/employees/10)
+* URL: [http://web:8080/api](http://web:8080/api)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/.htaccess](http://web:8080/api/.htaccess)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/elmah.axd](http://web:8080/elmah.axd)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1](http://web:8080/api/v1)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
   
   
   * Method: `DELETE`
@@ -260,7 +349,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1](http://10.20.0.78:10080/api/v1)
+* URL: [http://web:8080/api/](http://web:8080/api/)
   
   
   * Method: `GET`
@@ -271,7 +360,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/](http://10.20.0.78:10080/)
+* URL: [http://web:8080/8967374448392656086](http://web:8080/8967374448392656086)
   
   
   * Method: `GET`
@@ -282,7 +371,18 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees/10](http://10.20.0.78:10080/api/v1/employees/10)
+* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
+  
+  
+  * Method: `DELETE`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1/employees/6963167424881992155](http://web:8080/api/v1/employees/6963167424881992155)
   
   
   * Method: `GET`
@@ -293,7 +393,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/8251644184734161722](http://10.20.0.78:10080/8251644184734161722)
+* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
   
   
   * Method: `GET`
@@ -304,51 +404,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/](http://10.20.0.78:10080/api/v1/)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://10.20.0.78:10080/api/.htaccess](http://10.20.0.78:10080/api/.htaccess)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://10.20.0.78:10080/api/v1/.htaccess](http://10.20.0.78:10080/api/v1/.htaccess)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://10.20.0.78:10080/api/v1/employees/7814092365558931886](http://10.20.0.78:10080/api/v1/employees/7814092365558931886)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://10.20.0.78:10080/api/v1/employees/10](http://10.20.0.78:10080/api/v1/employees/10)
+* URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
   
   
   * Method: `PUT`
@@ -359,7 +415,18 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/5119862881606790229](http://10.20.0.78:10080/api/v1/5119862881606790229)
+* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
+  
+  
+  * Method: `PUT`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/.htaccess](http://web:8080/.htaccess)
   
   
   * Method: `GET`
@@ -370,7 +437,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/elmah.axd](http://10.20.0.78:10080/elmah.axd)
+* URL: [http://web:8080/api/8950099683436518787](http://web:8080/api/8950099683436518787)
   
   
   * Method: `GET`
@@ -381,7 +448,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/](http://10.20.0.78:10080/api/)
+* URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
   
   
   * Method: `GET`
@@ -392,7 +459,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/2779927754770138684](http://10.20.0.78:10080/api/2779927754770138684)
+* URL: [http://web:8080](http://web:8080)
   
   
   * Method: `GET`
@@ -403,7 +470,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api/v1/employees/10/](http://10.20.0.78:10080/api/v1/employees/10/)
+* URL: [http://web:8080/api/v1/](http://web:8080/api/v1/)
   
   
   * Method: `GET`
@@ -414,7 +481,7 @@ Instances: 2
   
   
   
-* URL: [http://10.20.0.78:10080/api](http://10.20.0.78:10080/api)
+* URL: [http://web:8080/](http://web:8080/)
   
   
   * Method: `GET`
@@ -425,7 +492,7 @@ Instances: 2
   
   
   
-Instances: 18
+Instances: 20
   
 ### Solution
 <p></p>
