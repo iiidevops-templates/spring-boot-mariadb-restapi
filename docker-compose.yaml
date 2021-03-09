@@ -14,7 +14,7 @@ services:
       db_password: IIIdevops123!
       db_host: db
     ports:
-      - 10080:8080
+      - 8080
   db:
     image: 'bitnami/mariadb:10.5-debian-10'
     restart: always
@@ -23,6 +23,11 @@ services:
       MARIADB_ROOT_PASSWORD: IIIdevops123!
     volumes:
       - ./db:/docker-entrypoint-initdb.d:rw
+    healthcheck:
+      test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
+      interval: 15s
+      timeout: 5s
+      retries: 6
   adminer:
     image: adminer
     restart: always
@@ -44,6 +49,7 @@ services:
     image: postman/newman
     depends_on:
       - web
+      - owasp
     volumes:
       - ./app:/etc/postman:rw
     command:

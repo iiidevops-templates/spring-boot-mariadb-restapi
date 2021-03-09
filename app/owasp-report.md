@@ -1,14 +1,14 @@
 
 # ZAP Scanning Report
 
-Generated on Tue, 9 Mar 2021 06:38:41
+Generated on Tue, 9 Mar 2021 07:30:12
 
 
 ## Summary of Alerts
 
 | Risk Level | Number of Alerts |
 | --- | --- |
-| High | 1 |
+| High | 0 |
 | Medium | 1 |
 | Low | 2 |
 | Informational | 1 |
@@ -17,7 +17,6 @@ Generated on Tue, 9 Mar 2021 06:38:41
 
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- | 
-| PII Disclosure | High | 1 | 
 | Buffer Overflow | Medium | 2 | 
 | A Server Error response code was returned by the server | Low | 2 | 
 | X-Content-Type-Options Header Missing | Low | 2 | 
@@ -25,50 +24,6 @@ Generated on Tue, 9 Mar 2021 06:38:41
 
 ## Alert Detail
 
-
-  
-  
-  
-  
-### PII Disclosure
-##### High (High)
-  
-  
-  
-  
-#### Description
-<p>The response contains Personally Identifiable Information, such as CC number, SSN and similar sensitive data.</p>
-  
-  
-  
-* URL: [http://web:8080/api/v1/employees](http://web:8080/api/v1/employees)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `5778739446134781672`
-  
-  
-  
-  
-Instances: 1
-  
-### Solution
-<p></p>
-  
-### Other information
-<p>Credit Card Type detected: Maestro</p><p>Bank Identification Number: 577873</p><p>Brand: MAESTRO</p><p>Category: STANDARD</p><p>Issuer: </p>
-  
-### Reference
-* 
-
-  
-#### CWE Id : 359
-  
-#### WASC Id : 13
-  
-#### Source ID : 3
 
   
   
@@ -272,17 +227,6 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/v1/2020665661554004060](http://web:8080/api/v1/2020665661554004060)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
 * URL: [http://web:8080/api/v1/.htaccess](http://web:8080/api/v1/.htaccess)
   
   
@@ -327,6 +271,17 @@ Instances: 2
   
   
   
+* URL: [http://web:8080/api/2129286232213013354](http://web:8080/api/2129286232213013354)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
 * URL: [http://web:8080/api/v1](http://web:8080/api/v1)
   
   
@@ -360,7 +315,7 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/8967374448392656086](http://web:8080/8967374448392656086)
+* URL: [http://web:8080/api/v1/employees/1728491411811949257](http://web:8080/api/v1/employees/1728491411811949257)
   
   
   * Method: `GET`
@@ -375,17 +330,6 @@ Instances: 2
   
   
   * Method: `DELETE`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://web:8080/api/v1/employees/6963167424881992155](http://web:8080/api/v1/employees/6963167424881992155)
-  
-  
-  * Method: `GET`
   
   
   * Evidence: `HTTP/1.1 404`
@@ -408,6 +352,17 @@ Instances: 2
   
   
   * Method: `PUT`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/4817408811027711897](http://web:8080/4817408811027711897)
+  
+  
+  * Method: `GET`
   
   
   * Evidence: `HTTP/1.1 404`
@@ -437,7 +392,7 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/8950099683436518787](http://web:8080/api/8950099683436518787)
+* URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
   
   
   * Method: `GET`
@@ -448,7 +403,7 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
+* URL: [http://web:8080/api/v1/8732413482927514344](http://web:8080/api/v1/8732413482927514344)
   
   
   * Method: `GET`

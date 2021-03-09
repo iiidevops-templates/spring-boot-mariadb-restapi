@@ -1,35 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Django Todo Postman Test" tests="1" time="0.000">
-  <testsuite name="index" id="868691f1-a17d-4fbb-b729-24009993aa67" timestamp="2021-03-09T06:37:25.074Z" tests="2" failures="2" errors="1" time="0.000">
-    <system-err><![CDATA[Iteration: 0
-RequestError: Error: connect ECONNREFUSED 172.23.0.5:5000
-    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1107:14)
-
----
-]]></system-err>
-    <testcase name="Response time is less than 800ms" time="0.000" classname="DjangoTodoPostmanTest">
-      <failure type="AssertionFailure" message="expected undefined to be a number or a date">
-        <![CDATA[Failed 1 times.]]>
-        <![CDATA[Collection JSON ID: aa20db5a-d305-439f-90af-1e8f49470550.]]>
-        <![CDATA[Collection name: Django Todo Postman Test.]]>
-        <![CDATA[Request name: index.]]>
-        <![CDATA[Test description: Response time is less than 800ms.]]>
-        <![CDATA[Error message: expected undefined to be a number or a date.]]>
-        <![CDATA[Stacktrace: AssertionError: expected undefined to be a number or a date
-   at Object.eval sandbox-script.js:1:1).]]>
-      </failure>
-    </testcase>
-    <testcase name="Status code is 200" time="0.000" classname="DjangoTodoPostmanTest">
-      <failure type="AssertionFailure" message="expected { Object (id, _details, ...) } to have property 'code'">
-        <![CDATA[Failed 1 times.]]>
-        <![CDATA[Collection JSON ID: aa20db5a-d305-439f-90af-1e8f49470550.]]>
-        <![CDATA[Collection name: Django Todo Postman Test.]]>
-        <![CDATA[Request name: index.]]>
-        <![CDATA[Test description: Status code is 200.]]>
-        <![CDATA[Error message: expected { Object (id, _details, ...) } to have property 'code'.]]>
-        <![CDATA[Stacktrace: AssertionError: expected { Object (id, _details, ...) } to have property 'code'
-   at Object.eval sandbox-script.js:2:1).]]>
-      </failure>
-    </testcase>
-  </testsuite>
+<testsuites name="spring-rest-api" tests="5" time="0.318">
+  <testsuite name="http://web:8080/api/v1/employees" id="4fc20b9b-deb0-489f-9008-699df2e027b0" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.156"/>
+  <testsuite name="http://web:8080/api/v1/employees" id="d9f6439e-2524-4a68-aef2-db33e874b450" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.056"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="4b6e6121-15a9-4204-89a3-1d513413067c" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.016"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="dc5a03e0-dd5d-4abd-bda3-3bddb0e2d24e" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.039"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="0f8e549c-3926-42df-bca2-f67a190917c4" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.051"/>
 </testsuites>

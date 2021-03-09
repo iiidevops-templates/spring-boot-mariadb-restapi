@@ -1,37 +1,100 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "aa20db5a-d305-439f-90af-1e8f49470550",
-		"name": "Django Todo Postman Test",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"name": "spring-rest-api",
+		"_postman_id": "9ab6ea79-109e-0c04-8bc7-bafd510012e8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "index",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response time is less than 800ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
-							"});\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
+			"name": "http://web:8080/api/v1/employees",
 			"request": {
+				"url": "http://web:8080/api/v1/employees",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"update\",\n    \"lastName\": \"myupdate\",\n    \"emailId\": \"openapiupdate@example.com\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://web:8080/api/v1/employees",
+			"request": {
+				"url": "http://web:8080/api/v1/employees",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"new\",\n    \"lastName\": \"new\",\n    \"emailId\": \"cccc@example.com\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://web:8080/api/v1/employees/1",
+			"request": {
+				"url": "http://web:8080/api/v1/employees/1",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://web:5000",
-					"host": [
-						"http://web:5000"
-					]
-				}
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://web:8080/api/v1/employees/1",
+			"request": {
+				"url": "http://web:8080/api/v1/employees/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"m0724001c\",\n    \"lastName\": \"wangc\",\n    \"emailId\": \"examplec@example.com\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://web:8080/api/v1/employees/1",
+			"request": {
+				"url": "http://web:8080/api/v1/employees/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
 			},
 			"response": []
 		}
