@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Django Todo Postman Test" tests="1" time="0.000">
+  <testsuite name="index" id="1e8e05b5-9602-4805-a0f7-45e6e313bc1e" timestamp="2021-03-09T04:55:26.025Z" tests="2" failures="2" errors="1" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: Error: connect ECONNREFUSED 172.23.0.5:5000
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1107:14)
+
+---
+]]></system-err>
+    <testcase name="Response time is less than 800ms" time="0.000" classname="DjangoTodoPostmanTest">
+      <failure type="AssertionFailure" message="expected undefined to be a number or a date">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: aa20db5a-d305-439f-90af-1e8f49470550.]]>
+        <![CDATA[Collection name: Django Todo Postman Test.]]>
+        <![CDATA[Request name: index.]]>
+        <![CDATA[Test description: Response time is less than 800ms.]]>
+        <![CDATA[Error message: expected undefined to be a number or a date.]]>
+        <![CDATA[Stacktrace: AssertionError: expected undefined to be a number or a date
+   at Object.eval sandbox-script.js:1:1).]]>
+      </failure>
+    </testcase>
+    <testcase name="Status code is 200" time="0.000" classname="DjangoTodoPostmanTest">
+      <failure type="AssertionFailure" message="expected { Object (id, _details, ...) } to have property 'code'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: aa20db5a-d305-439f-90af-1e8f49470550.]]>
+        <![CDATA[Collection name: Django Todo Postman Test.]]>
+        <![CDATA[Request name: index.]]>
+        <![CDATA[Test description: Status code is 200.]]>
+        <![CDATA[Error message: expected { Object (id, _details, ...) } to have property 'code'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected { Object (id, _details, ...) } to have property 'code'
+   at Object.eval sandbox-script.js:2:1).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>
