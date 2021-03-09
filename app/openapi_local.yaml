@@ -1,0 +1,102 @@
+openapi: 3.0.2
+info:
+  title: Spring Boot MariaDB CRUD Example Tutorial
+  version: '1.0'
+  description: Testing REST APIs via Postman Client
+servers:
+  - url: 'http://10.20.0.78'
+paths:
+  '/api/v1/employees ':
+    summary: Create Employee REST API
+    description: 'HTTP Method: POST'
+    post:
+      summary: Create Employee REST API
+      description: 'HTTP Method: POST'
+      operationId: ''
+      responses:
+        '200':
+          description: create emplyee success
+      requestBody:
+        description: Create Employee
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  example: bear
+                lastName:
+                  type: string
+                  example: my
+                emailId:
+                  type: string
+                  example: openapi@example.com
+    get:
+      summary: Get all Employees REST API
+      description: Get all Employees REST API
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+  '/api/v1/employees/{id}':
+    summary: Get Employee by ID REST API
+    description: 'HTTP Method: GET'
+    get:
+      summary: Get Employee by ID REST API
+      description: 'HTTP Method: GET'
+      operationId: ''
+      responses:
+        '200':
+          description: get emplyee success
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of employee
+    put:
+      summary: Update Employee REST API
+      description: Update Employee REST API
+      operationId: ''
+      responses:
+        '200':
+          description: update emplyee success
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of employee
+      requestBody:
+        description: Create Employee
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  example: bear
+                lastName:
+                  type: string
+                  example: my
+                emailId:
+                  type: string
+                  example: openapi@example.com
+    delete:
+      summary: Delete Employee REST API
+      description: Delete Employee REST API
+      operationId: ''
+      responses:
+        '200':
+          description: update emplyee success
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: id of employee
