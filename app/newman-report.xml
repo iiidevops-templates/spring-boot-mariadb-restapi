@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="spring-rest-api" tests="5" time="0.318">
-  <testsuite name="http://web:8080/api/v1/employees" id="4fc20b9b-deb0-489f-9008-699df2e027b0" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.156"/>
-  <testsuite name="http://web:8080/api/v1/employees" id="d9f6439e-2524-4a68-aef2-db33e874b450" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.056"/>
-  <testsuite name="http://web:8080/api/v1/employees/1" id="4b6e6121-15a9-4204-89a3-1d513413067c" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.016"/>
-  <testsuite name="http://web:8080/api/v1/employees/1" id="dc5a03e0-dd5d-4abd-bda3-3bddb0e2d24e" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.039"/>
-  <testsuite name="http://web:8080/api/v1/employees/1" id="0f8e549c-3926-42df-bca2-f67a190917c4" timestamp="2021-03-09T07:31:27.290Z" tests="0" failures="0" errors="0" time="0.051"/>
+<testsuites name="spring-rest-api" tests="5" time="0.595">
+  <testsuite name="http://web:8080/api/v1/employees" id="c9795bf5-bdcf-442d-834a-a700ed2537a0" timestamp="2021-03-09T09:17:53.367Z" tests="0" failures="0" errors="0" time="0.097"/>
+  <testsuite name="http://web:8080/api/v1/employees" id="6c19ac2f-2b38-4148-8a61-343ddb660c49" timestamp="2021-03-09T09:17:53.367Z" tests="0" failures="0" errors="0" time="0.279"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="e1d91d4c-966e-4373-a5b4-6de5f58c54fc" timestamp="2021-03-09T09:17:53.367Z" tests="0" failures="0" errors="0" time="0.054"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="de3392d7-2a32-4b58-ae0b-4ac52c404708" timestamp="2021-03-09T09:17:53.367Z" tests="0" failures="0" errors="0" time="0.066"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="ac058b09-cb1a-4411-a87c-dbef0a9650b3" timestamp="2021-03-09T09:17:53.367Z" tests="0" failures="0" errors="0" time="0.099"/>
 </testsuites>

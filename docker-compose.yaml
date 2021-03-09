@@ -1,5 +1,5 @@
 # if dont want to mess with your os env
-version: '3.1'
+version: '2.1'
 services:
   web:
     build:
@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile.local
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       db_name: springboot_demo
       db_username: root
@@ -15,6 +16,11 @@ services:
       db_host: db
     ports:
       - 8080
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/employees"]
+        interval: 180s
+        timeout: 5s
+        retries: 5
   db:
     image: 'bitnami/mariadb:10.5-debian-10'
     restart: always
@@ -25,8 +31,8 @@ services:
       - ./db:/docker-entrypoint-initdb.d:rw
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mariadb/healthcheck.sh']
-      interval: 15s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 6
   adminer:
     image: adminer
@@ -48,8 +54,8 @@ services:
   postman_collection:
     image: postman/newman
     depends_on:
-      - web
-      - owasp
+      web:
+        condition: service_healthy
     volumes:
       - ./app:/etc/postman:rw
     command:
@@ -58,11 +64,14 @@ services:
       - "--reporters"
       - "junit"
       - "--reporter-junit-export=/etc/postman/newman-report.xml"
+      - "--delay-request"
+      - "1000"
   # owasp
   owasp:
     image: owasp/zap2docker-stable
     depends_on:
-      - web
+      web:
+        condition: service_healthy
     volumes:
       - ./app:/zap/wrk/:rw
     tty: true
