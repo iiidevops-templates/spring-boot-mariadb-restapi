@@ -14,7 +14,7 @@ services:
       db_password: IIIdevops123!
       db_host: db
     ports:
-      - 8080
+      - 10080:8080
   db:
     image: 'bitnami/mariadb:10.5-debian-10'
     restart: always
@@ -62,5 +62,5 @@ services:
     tty: true
     command: bash -c "
         sleep 30 && 
-        zap-full-scan.py -t http://web:8080 -w owasp-report.md -g gen.conf
+        zap-api-scan.py -t openapi_local.yaml -w owasp-report.md -g gen.conf -f openapi
       "

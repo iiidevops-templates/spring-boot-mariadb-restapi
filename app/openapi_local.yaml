@@ -4,7 +4,8 @@ info:
   version: '1.0'
   description: Testing REST APIs via Postman Client
 servers:
-  - url: 'http://10.20.0.78'
+  - url: 'http://10.20.0.78:10080'
+  - url: 'http://localhost:10080'
 paths:
   '/api/v1/employees ':
     summary: Create Employee REST API
