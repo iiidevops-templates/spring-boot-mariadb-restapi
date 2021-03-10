@@ -17,7 +17,7 @@ spring簡易RESTAPI程式碼範例-docker
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
 | 資料夾 | iiidevops | :warning:(請勿刪除)devops系統測試所需檔案 | 在根目錄 |
 | 檔案 | .rancher-pipeline.yml | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在根目錄 |
-| 檔案 | pipeline_settings.json | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在iiidevops資料夾內 | 
+| 檔案 | pipeline_settings.json | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在iiidevops資料夾內 |
 
 ## 開發者注意事項
 :warning: 若專案建立後程式碼Pull到local端下來無法執行, 此狀況為正常現象
