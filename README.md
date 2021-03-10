@@ -5,7 +5,8 @@ spring簡易RESTAPI程式碼範例-docker
 [spring-boot-mariadb-crud-example-tutorial](https://www.javaguides.net/2020/01/spring-boot-mariadb-crud-example-tutorial.html)
 
 ## 專案資料夾與檔案格式說明
-檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。
+檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。  
+
 | 型態 | 名稱 | 說明 | 路徑 |
 | --- | --- | --- | --- |
 | 資料夾 | app | 專案主要程式碼 | 根目錄 |
@@ -15,9 +16,9 @@ spring簡易RESTAPI程式碼範例-docker
 | 檔案 | openapi_local.yaml | 本地端快速部屬使用(openAPI文件) | 在app資料夾內 | 
 | 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | 在app資料夾內 |
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
-| 資料夾 | iiidevops | :warning:(請勿刪除)devops系統測試所需檔案 | 在根目錄 |
-| 檔案 | .rancher-pipeline.yml | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在根目錄 |
-| 檔案 | pipeline_settings.json | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在iiidevops資料夾內 |
+| 資料夾 | iiidevops | devops系統測試所需檔案 | 在根目錄 |
+| 檔案 | .rancher-pipeline.yml | devops系統測試所需檔案 | 在根目錄 |
+| 檔案 | pipeline_settings.json | devops系統測試所需檔案 | 在iiidevops資料夾內 |
 
 ## 開發者注意事項
 :warning: 若專案建立後程式碼Pull到local端下來無法執行, 此狀況為正常現象
