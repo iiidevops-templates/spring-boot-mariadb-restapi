@@ -37,7 +37,9 @@ docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca 
 | --- | --- | --- |
 | docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過http://localhost:49355/api/v1/employees 連線 | 
 | docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過http://localhost:49353/api/v1/employees 連線 |
-## 網頁資料庫管理說明
-
+### 網頁資料庫管理說明
+| 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
+| --- | --- | --- | --- | --- |
+| Mysql | db | root | mypassword | springboot_demo |
 
 JDK15
