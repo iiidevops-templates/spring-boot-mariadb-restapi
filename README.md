@@ -15,6 +15,38 @@ spring簡易RESTAPI程式碼範例-docker
 | 檔案 | openapi_local.yaml | 本地端快速部屬使用(openAPI文件) | 在app資料夾內 | 
 | 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | 在app資料夾內 |
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
+| 資料夾 | iiidevops | :warning:(請勿刪除)devops系統測試所需檔案 | 在根目錄 |
+| 檔案 | .rancher-pipeline.yml | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在根目錄 |
+| 檔案 | pipeline_settings.json | :warning:(請勿更動刪除)devops系統測試所需檔案 | 在iiidevops資料夾內 | 
+
+## 開發者注意事項
+:warning: 若專案建立後程式碼Pull到local端下來無法執行, 此狀況為正常現象
+* 要在local端測試部屬提供兩種方式，透過安裝docker來進行專案快速專案部屬或直接修改我您作業系統的環境變數
+* 若非用docker快速部屬想直接採用原本安裝在作業系統上的資料庫的話，請設定環境變數
+```env
+`db_host`: 指向到您的資料庫，例如localhost或是其他IP
+`db_name`: 指向到您的資料庫名稱
+`db_username`: 指向到您的資料庫使用者名稱
+`db_password`: 指向到您的資料庫密碼
+```
+
+## 修改程式碼注意事項
+1. 修改資料庫連線  
+由於系統採用固定獨特的環境變數作為資料庫連線方法, 因此專案的資料庫連線部分請勿更動`app/src/main/resources/application.properties`內的
+```
+spring.datasource.url=jdbc:mariadb://${db_host}:3306/${db_name}
+spring.datasource.username=${db_username}
+spring.datasource.password=${db_password}
+```
+2. 修改環境版本  
+而環境版本若非maven:3.6.3 JDK15, 想要更換環境版本請至`Dockefile`修改為自己想要的版本(如需要本機上做測試則須一併連同`Dockerfile.local`去做修改)
+3. 部屬環境額外環境變數
+若開發需求上可能有針對專案需要的特別環境變數，由於目前此需求不再系統開發考慮範圍內，因此可能要麻煩使用者透過修改`Dockerfile`的形式去加入
+```dockerfile
+ENV 環境變數名稱1 值1
+ENV 環境變數名稱2 值2
+ENV 環境變數名稱3 值3
+```
 
 ## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
 需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料  
@@ -106,6 +138,8 @@ db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
   而到了json檔案內就將http://localhost:8080改成http://web:8080即可
 ```
 然後執行`docker-compose up -d --build`就會自動產生postman報告與owasp ZAP掃描結果
+
+
 
 ## reference
 https://www.javaguides.net/2020/01/spring-boot-mariadb-crud-example-tutorial.html
