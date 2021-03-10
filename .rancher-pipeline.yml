@@ -1,0 +1,179 @@
+stages:
+- name: Build--build and push docker image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+      pushRemote: true
+      registry: harbor-demo.iiidevops.org
+    env:
+      PLUGIN_BUILD_ARGS: --progress=tty --network=host
+      PLUGIN_DEBUG: "true"
+      PLUGIN_INSECURE: "true"
+      PLUGIN_MIRROR: https://harbor-demo.iiidevops.org
+      PLUGIN_MTU: "1000"
+    when:
+      branch:
+        include:
+        - master
+        - develop
+
+- name: Test--Checkmarx source code scan
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-checkmarx
+      version: 0.1.0
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      answers:
+        # Test common answers
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        git.url: ${CICD_GIT_URL}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+  when:
+    branch:
+      include:
+        - master
+        - checkmarx
+
+- name: Deploy--DB
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-db
+      version: 0.3.0
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      answers:
+        db.type: mariadb
+        # Always true in this time
+        db.gui: true
+        db.username: iiidevops
+        db.password: templatePassword
+        db.name: todo
+        db.tag: 10.5
+        # Common project info
+        git.url: ${CICD_GIT_URL}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+    when:
+      branch:
+        include:
+          - master
+
+- name: Deploy--Wait DB deployment
+  steps:
+  - runScriptConfig:
+      image: iiiorg/deployment-waiter:0.0.2
+      shellScript: >-
+        rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
+        bash /app/run.sh
+    env:
+      namespace: ${CICD_GIT_REPO_NAME}
+      deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+      max_wait: 128
+    envFrom:
+    - sourceName: pipeline-api-key
+      sourceKey: API_TOKEN
+      targetKey: rancher_api_token
+    - sourceName: rancher
+      sourceKey: rancher-url
+      targetKey: rancher_url
+    when:
+      branch:
+        include:
+          - master
+
+- name: Deploy--Web
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-web
+      version: 0.5.0
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      answers:
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        harbor.host: harbor-demo.iiidevops.org
+        git.url: ${CICD_GIT_URL}
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        web.port: 8080
+        web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+        # db settings, all should be as same as those in deploy-db stage
+        db.releaseName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+        db.username: iiidevops
+        db.password: templatePassword
+        db.name: todo
+    when:
+      branch:
+        include:
+          - master
+          - develop
+
+- name: Deploy--Wait Web deployment
+  steps:
+  - runScriptConfig:
+      image: iiiorg/deployment-waiter:0.0.2
+      shellScript: >-
+        rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
+        bash /app/run.sh
+    env:
+      namespace: ${CICD_GIT_REPO_NAME}
+      deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+      max_wait: 128
+    envFrom:
+    - sourceName: pipeline-api-key
+      sourceKey: API_TOKEN
+      targetKey: rancher_api_token
+    - sourceName: rancher
+      sourceKey: rancher-url
+      targetKey: rancher_url
+    when:
+      branch:
+        include:
+          - master
+
+- name: Test--Postman
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-test-postman
+      version: 0.1.0
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-pm
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      answers:
+        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+        web.port: 8080
+        # Common answers
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        git.url: ${CICD_GIT_URL}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+  when:
+    branch:
+      include:
+        - master
+
+- name: Test--Webinspect
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-test-webinspect
+      version: 0.1.0
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-wi
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      answers:
+        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+        # Common answers
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        git.url: ${CICD_GIT_URL}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+  when:
+    branch:
+      include:
+        - master
