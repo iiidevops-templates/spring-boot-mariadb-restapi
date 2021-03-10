@@ -16,7 +16,7 @@ spring簡易RESTAPI程式碼範例-docker
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
 
 ## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試
-需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同
+需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料
 ``` 
 docker-compose up -d --build 
 ```
@@ -41,5 +41,9 @@ docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca 
 | 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
 | --- | --- | --- | --- | --- |
 | Mysql | db | root | mypassword | springboot_demo |
+### 清除快速部屬
+| 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部屬 |
+| --- | --- |
+| docker-compose down | docker-compose down -v | 
 
 JDK15
