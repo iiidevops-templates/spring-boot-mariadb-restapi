@@ -2,6 +2,7 @@ Docker spring maraidb RESTAPI
 spring簡易RESTAPI程式碼範例-docker
 
 ## 教學參考來源:
+[spring-boot-mariadb-crud-example-tutorial](https://www.javaguides.net/2020/01/spring-boot-mariadb-crud-example-tutorial.html)
 
 ## 專案資料夾與檔案格式說明
 檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。
