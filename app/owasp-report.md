@@ -1,7 +1,7 @@
 
 # ZAP Scanning Report
 
-Generated on Tue, 9 Mar 2021 09:19:05
+Generated on Wed, 10 Mar 2021 03:33:54
 
 
 ## Summary of Alerts
@@ -18,9 +18,9 @@ Generated on Tue, 9 Mar 2021 09:19:05
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- | 
 | Buffer Overflow | Medium | 2 | 
-| A Server Error response code was returned by the server | Low | 3 | 
+| A Server Error response code was returned by the server | Low | 2 | 
 | X-Content-Type-Options Header Missing | Low | 2 | 
-| A Client Error response code was returned by the server | Informational | 18 | 
+| A Client Error response code was returned by the server | Informational | 20 | 
 
 ## Alert Detail
 
@@ -119,17 +119,6 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
-  
-  
-  * Method: `PUT`
-  
-  
-  * Evidence: `HTTP/1.1 500`
-  
-  
-  
-  
 * URL: [http://web:8080/api/v1/employees/.htaccess](http://web:8080/api/v1/employees/.htaccess)
   
   
@@ -152,7 +141,7 @@ Instances: 2
   
   
   
-Instances: 3
+Instances: 2
   
 ### Solution
 <p></p>
@@ -260,7 +249,7 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/.htaccess](http://web:8080/api/.htaccess)
+* URL: [http://web:8080/api/v1/employees/6044099067961167231](http://web:8080/api/v1/employees/6044099067961167231)
   
   
   * Method: `GET`
@@ -271,7 +260,7 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/288398511647892971](http://web:8080/api/288398511647892971)
+* URL: [http://web:8080/api/.htaccess](http://web:8080/api/.htaccess)
   
   
   * Method: `GET`
@@ -326,7 +315,29 @@ Instances: 2
   
   
   
-* URL: [http://web:8080/api/v1/5327022737602098736](http://web:8080/api/v1/5327022737602098736)
+* URL: [http://web:8080/api/455574209505724935](http://web:8080/api/455574209505724935)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
+  
+  
+  * Method: `DELETE`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+* URL: [http://web:8080/api/v1/6858432843948973156](http://web:8080/api/v1/6858432843948973156)
   
   
   * Method: `GET`
@@ -359,6 +370,17 @@ Instances: 2
   
   
   
+* URL: [http://web:8080/api/v1/employees/10/](http://web:8080/api/v1/employees/10/)
+  
+  
+  * Method: `PUT`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
 * URL: [http://web:8080/.htaccess](http://web:8080/.htaccess)
   
   
@@ -371,28 +393,6 @@ Instances: 2
   
   
 * URL: [http://web:8080/api/v1/employees/10](http://web:8080/api/v1/employees/10)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://web:8080/1290007334752855937](http://web:8080/1290007334752855937)
-  
-  
-  * Method: `GET`
-  
-  
-  * Evidence: `HTTP/1.1 404`
-  
-  
-  
-  
-* URL: [http://web:8080/api/v1/employees/5764817941031248770](http://web:8080/api/v1/employees/5764817941031248770)
   
   
   * Method: `GET`
@@ -436,7 +436,18 @@ Instances: 2
   
   
   
-Instances: 18
+* URL: [http://web:8080/8606191645633381392](http://web:8080/8606191645633381392)
+  
+  
+  * Method: `GET`
+  
+  
+  * Evidence: `HTTP/1.1 404`
+  
+  
+  
+  
+Instances: 20
   
 ### Solution
 <p></p>
