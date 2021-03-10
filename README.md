@@ -10,8 +10,8 @@ spring簡易RESTAPI程式碼範例-docker
 | 資料夾 | app | 專案主要程式碼 | 根目錄 |
 | 檔案 | Dockerfile.local | 本地端部屬使用 | 根目錄 |
 | 檔案 | docker-compose.yaml | 本地端快速部屬使用 | 根目錄 |
-| 檔案 | postman_collection_local.json | 本地端快速部屬使用(Postman collection) | app資料夾內 |
-| 檔案 | openapi_local.yaml | 本地端快速部屬使用(openAPI文件) | app資料夾內 | 
+| 檔案 | postman_collection_local.json | 本地端快速部屬使用(Postman collection) | 在app資料夾內 |
+| 檔案 | openapi_local.yaml | 本地端快速部屬使用(openAPI文件) | 在app資料夾內 | 
 | 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | 在app資料夾內 |
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
 
