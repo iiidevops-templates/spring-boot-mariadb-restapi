@@ -23,7 +23,7 @@ docker-compose up -d --build
 ```
 部屬包含spring API網頁 + Postman-collection(newman)自動測試, 自動測試報告結果會自動產生在`app/newman-report.xml`, 驗證後即可上傳程式碼
 ### 查看部屬結果 `docker-compose ps`
-```
+```sh
                        Name                                     Command                  State                    Ports
 ------------------------------------------------------------------------------------------------------------------------------------
 docker-spring-maraidb-restapi_adminer_1              entrypoint.sh docker-php-e ...   Up             0.0.0.0:49353->8080/tcp
@@ -40,7 +40,7 @@ docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca 
 | docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過http://localhost:49353/api/v1/employees 連線 |
 ### 查看與追蹤部屬的網頁伺服器紀錄Log `docker-compose logs -f web`
 可用`Ctrl+V`來離開Log追蹤
-```
+```sh
 web_1                 |
 web_1                 |   .   ____          _            __ _ _
 web_1                 |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -64,7 +64,28 @@ web_1                 | 2021-03-10 03:32:36.464  INFO 1 --- [nio-8080-exec-1] o.
 web_1                 | 2021-03-10 03:32:36.465  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 web_1                 | 2021-03-10 03:32:36.471  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 ```
-###
+### 查看與追蹤部屬的資料庫紀錄Log `docker-compose logs -f db`
+可用`Ctrl+V`來離開Log追蹤
+```sh
+db_1                  | mariadb 09:14:16.70
+db_1                  | mariadb 09:14:16.71 Welcome to the Bitnami mariadb container
+db_1                  | mariadb 09:14:16.71 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-mariadb
+db_1                  | mariadb 09:14:16.71 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-mariadb/issues
+db_1                  | mariadb 09:14:16.71
+db_1                  | mariadb 09:14:16.72 INFO  ==> ** Starting MariaDB setup **
+db_1                  | mariadb 09:14:16.74 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
+db_1                  | mariadb 09:14:16.75 INFO  ==> Initializing mariadb database
+db_1                  | mariadb 09:14:16.77 INFO  ==> Updating 'my.cnf' with custom configuration
+db_1                  | mariadb 09:14:16.78 INFO  ==> Installing database
+db_1                  | mariadb 09:14:27.30 INFO  ==> Starting mariadb in background
+db_1                  | mariadb 09:14:29.33 INFO  ==> Configuring authentication
+db_1                  | mariadb 09:14:30.27 INFO  ==> Running mysql_upgrade
+db_1                  | mariadb 09:14:43.74 INFO  ==> Stopping mariadb
+db_1                  | mariadb 09:14:44.75 INFO  ==> ** MariaDB setup finished! **
+db_1                  |
+db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
+
+```
 ### 網頁資料庫管理說明
 | 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
 | --- | --- | --- | --- | --- |
