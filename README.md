@@ -35,8 +35,9 @@ docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca 
 由上述結果(Name與Ports)可以查詢出部屬的網站位置(localhost可換成主機IP)
 | Name | Ports | 說明 |
 | --- | --- | --- |
-| docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過http://localhost:49355/api/v1/emplyee 連線 | 
-| docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過http://localhost:49353/api/v1/emplyee 連線 |
+| docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過http://localhost:49355/api/v1/employees 連線 | 
+| docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過http://localhost:49353/api/v1/employees 連線 |
+## 網頁資料庫管理說明
 
 
 JDK15
