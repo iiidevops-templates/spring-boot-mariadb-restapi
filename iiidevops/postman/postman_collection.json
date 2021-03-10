@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "index",
+			"name": "api/v1",
 			"event": [
 				{
 					"listen": "test",
@@ -27,9 +27,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{test_origin}}",
+					"raw": "{{test_origin}}/api/v1/employees",
 					"host": [
-						"{{test_origin}}"
+						"{{test_origin}}/api/v1/employees"
 					]
 				}
 			},
