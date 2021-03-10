@@ -17,6 +17,7 @@ spring簡易RESTAPI程式碼範例-docker
 
 ## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試
 需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料
+:warning: 這個專案部屬的時間會比較久，最快大約也需要3~5分鐘請慢慢等候
 ``` 
 docker-compose up -d --build 
 ```
