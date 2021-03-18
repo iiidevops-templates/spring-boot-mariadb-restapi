@@ -1,6 +1,6 @@
 {
   "name": "Spring Mariadb 10.5 - RESTful API",
-  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-mariadb-restapi/blob/master/README.md'>RESTful API範本說明</a>",
+  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-mariadb-restapi/blob/master/README.md' target='_blank'>RESTful API範本說明</a>",
   "arguments": [
     {
       "key": "db.username",
