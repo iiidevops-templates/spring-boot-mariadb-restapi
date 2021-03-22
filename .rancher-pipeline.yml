@@ -18,25 +18,25 @@ stages:
         include:
         - master
         - develop
-  # 需要符合Rancher版本
-  - runScriptConfig:
-      image: iiiorg/rancher-cli:v2.4.6
-      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify && 
-        rancher kubectl delete configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
-        --ignore-not-found=true && 
-        rancher kubectl create configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
-        --from-env-file=iiidevops/app.env && 
-        rancher kubectl annotate configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
-        iiidevops.org/project_name=${CICD_GIT_REPO_NAME} iiidevops.org/branch=${CICD_GIT_BRANCH} 
-        iiidevops.org/commit_id=${CICD_GIT_COMMIT} iiidevops.org/type=appenv
-    # Rancher管理授權連線
-    envFrom:
-    - sourceKey: API_TOKEN
-      sourceName: pipeline-api-key
-      targetKey: rancher_api_token
-    - sourceKey: rancher-url
-      sourceName: rancher
-      targetKey: rancher_url
+
+- name: Test--Sonarqube source code scan
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
+      version: 0.1.0
+      name: "${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq"
+      targetNamespace: "${CICD_GIT_REPO_NAME}"
+      answers:
+        git.branch: "${CICD_GIT_BRANCH}"
+        git.commitID: "${CICD_GIT_COMMIT}"
+        git.repoName: "${CICD_GIT_REPO_NAME}"
+        git.url: "${CICD_GIT_URL}"
+        pipeline.sequence: "${CICD_EXECUTION_SEQUENCE}"
+    when:
+      branch:
+        include:
+        - master
+        - develop
 
 - name: Test--Checkmarx source code scan
   steps:
@@ -56,7 +56,7 @@ stages:
     branch:
       include:
         - master
-        - checkmarx
+        - develop
 
 - name: Deploy--DB
   steps:
@@ -106,6 +106,32 @@ stages:
         include:
           - master
 
+- name: Deploy--Setting Web environment variables
+  steps:
+  # 需要符合Rancher版本
+  - runScriptConfig:
+      image: iiiorg/rancher-cli:v2.4.6
+      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify && 
+        rancher kubectl delete configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
+        --ignore-not-found=true && 
+        rancher kubectl create configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
+        --from-env-file=iiidevops/app.env && 
+        rancher kubectl annotate configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env 
+        iiidevops.org/project_name=${CICD_GIT_REPO_NAME} iiidevops.org/branch=${CICD_GIT_BRANCH} 
+        iiidevops.org/commit_id=${CICD_GIT_COMMIT} iiidevops.org/type=appenv
+    # Rancher管理授權連線
+    envFrom:
+    - sourceKey: API_TOKEN
+      sourceName: pipeline-api-key
+      targetKey: rancher_api_token
+    - sourceKey: rancher-url
+      sourceName: rancher
+      targetKey: rancher_url
+    when:
+      branch:
+        include:
+        - master
+
 - name: Deploy--Web
   steps:
   - applyAppConfig:
@@ -131,7 +157,6 @@ stages:
       branch:
         include:
           - master
-          - develop
 
 - name: Deploy--Wait Web deployment
   steps:
@@ -196,22 +221,3 @@ stages:
     branch:
       include:
         - master
-
-- name: Test--Sonarqube source code scan
-  steps:
-  - applyAppConfig:
-      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
-      version: 0.1.0
-      name: "${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq"
-      targetNamespace: "${CICD_GIT_REPO_NAME}"
-      answers:
-        git.branch: "${CICD_GIT_BRANCH}"
-        git.commitID: "${CICD_GIT_COMMIT}"
-        git.repoName: "${CICD_GIT_REPO_NAME}"
-        git.url: "${CICD_GIT_URL}"
-        pipeline.sequence: "${CICD_EXECUTION_SEQUENCE}"
-    when:
-      branch:
-        include:
-        - master
-        - develop
