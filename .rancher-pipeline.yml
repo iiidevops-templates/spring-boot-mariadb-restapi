@@ -110,7 +110,7 @@ stages:
   steps:
   - applyAppConfig:
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
-      version: 0.5.0
+      version: 0.5.1
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
       answers:
@@ -196,3 +196,22 @@ stages:
     branch:
       include:
         - master
+
+- name: Test--Sonarqube source code scan
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
+      version: 0.1.0
+      name: "${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq"
+      targetNamespace: "${CICD_GIT_REPO_NAME}"
+      answers:
+        git.branch: "${CICD_GIT_BRANCH}"
+        git.commitID: "${CICD_GIT_COMMIT}"
+        git.repoName: "${CICD_GIT_REPO_NAME}"
+        git.url: "${CICD_GIT_URL}"
+        pipeline.sequence: "${CICD_EXECUTION_SEQUENCE}"
+    when:
+      branch:
+        include:
+        - master
+        - develop
