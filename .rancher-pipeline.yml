@@ -13,11 +13,11 @@ stages:
       PLUGIN_INSECURE: "true"
       PLUGIN_MIRROR: https://harbor-demo.iiidevops.org
       PLUGIN_MTU: "1000"
-    when:
-      branch:
-        include:
-        - master
-        - develop
+  when:
+    branch:
+      include:
+      - master
+      - develop
 
 - name: Test--Sonarqube source code scan
   steps:
@@ -32,11 +32,11 @@ stages:
         git.repoName: "${CICD_GIT_REPO_NAME}"
         git.url: "${CICD_GIT_URL}"
         pipeline.sequence: "${CICD_EXECUTION_SEQUENCE}"
-    when:
-      branch:
-        include:
-        - master
-        - develop
+  when:
+    branch:
+      include:
+      - master
+      - develop
 
 - name: Test--Checkmarx source code scan
   steps:
@@ -78,10 +78,10 @@ stages:
         git.repoName: ${CICD_GIT_REPO_NAME}
         git.branch: ${CICD_GIT_BRANCH}
         git.commitID: ${CICD_GIT_COMMIT}
-    when:
-      branch:
-        include:
-          - master
+  when:
+    branch:
+      include:
+        - master
 
 - name: Deploy--Wait DB deployment
   steps:
@@ -101,10 +101,10 @@ stages:
     - sourceName: rancher
       sourceKey: rancher-url
       targetKey: rancher_url
-    when:
-      branch:
-        include:
-          - master
+  when:
+    branch:
+      include:
+        - master
 
 - name: Deploy--Setting Web environment variables
   steps:
@@ -127,10 +127,10 @@ stages:
     - sourceKey: rancher-url
       sourceName: rancher
       targetKey: rancher_url
-    when:
-      branch:
-        include:
-        - master
+  when:
+    branch:
+      include:
+      - master
 
 - name: Deploy--Web
   steps:
@@ -153,10 +153,10 @@ stages:
         db.username: iiidevops
         db.password: templatePassword
         db.name: todo
-    when:
-      branch:
-        include:
-          - master
+  when:
+    branch:
+      include:
+        - master
 
 - name: Deploy--Wait Web deployment
   steps:
@@ -176,10 +176,10 @@ stages:
     - sourceName: rancher
       sourceKey: rancher-url
       targetKey: rancher_url
-    when:
-      branch:
-        include:
-          - master
+  when:
+    branch:
+      include:
+        - master
 
 - name: Test--Postman
   steps:
