@@ -1,6 +1,27 @@
 Docker spring maraidb RESTAPI
 spring簡易RESTAPI程式碼範例-docker
 
+## 如何增加Sonarqube掃描(用預設的QualiyGate)
+在`app/pom.xml`的檔案內plugins新增如下段落後pipeline即可運行Sonarqube掃描
+```
+	<build>
+		<plugins>
+			<plugin>
+          		<groupId>org.sonarsource.scanner.maven</groupId>
+          		<artifactId>sonar-maven-plugin</artifactId>
+          		<version>3.7.0.1746</version>
+        	</plugin>
+        	<plugin>
+          		<groupId>org.jacoco</groupId>
+          		<artifactId>jacoco-maven-plugin</artifactId>
+          		<version>0.8.6</version>
+        	</plugin>
+		</plugins>
+	</build>
+```   
+若要設定其他額外的細節也可寫在`app/pom.xml`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
+相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
+
 ## 專案資料夾與檔案格式說明
 檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。  
 
