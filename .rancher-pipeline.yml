@@ -25,7 +25,6 @@ stages:
       shellScript: ls && cd app && mvn install -DskipTests && mvn sonar:sonar 
         -Dsonar.host.url=http://sonarqube-server-service.default.svc.cluster.local:9000 
         -Dsonar.projectKey=${CICD_GIT_REPO_NAME} 
-        -Dsonar.projectName=${CICD_GIT_REPO_NAME} 
         -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
   when:
     branch:
