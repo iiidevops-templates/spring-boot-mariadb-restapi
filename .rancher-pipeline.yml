@@ -27,6 +27,9 @@ stages:
         -Dsonar.projectName=${CICD_GIT_REPO_NAME} 
         -Dsonar.projectKey=${CICD_GIT_REPO_NAME} 
         -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
+        -Dsonar.log.level=DEBUG 
+        -Dsonar.qualitygate.wait=true 
+        -sonar.qualitygate.timeout=600
   when:
     branch:
       include:
