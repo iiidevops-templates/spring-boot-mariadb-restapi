@@ -29,7 +29,7 @@ stages:
         -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
         -Dsonar.log.level=DEBUG 
         -Dsonar.qualitygate.wait=true 
-        -sonar.qualitygate.timeout=600
+        -Dsonar.qualitygate.timeout=600
   when:
     branch:
       include:
