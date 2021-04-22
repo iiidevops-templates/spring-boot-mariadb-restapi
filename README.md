@@ -2,7 +2,8 @@ Docker spring maraidb RESTAPI
 spring簡易RESTAPI程式碼範例-docker
 
 ## 如何增加Sonarqube掃描(用預設的QualiyGate)
-在`app/pom.xml`的檔案內plugins新增如下段落後pipeline即可運行Sonarqube掃描
+在`app/pom.xml`的檔案內plugins新增如下段落後pipeline即可運行Sonarqube掃描，(此專案Sonarqube掃描不包含Unit Test)  
+在Spring專案的Sonarqube掃描會在openjdk11的環境執行(目前安裝僅支援到java11)，但是對Dockerfile編寫或是部屬的網頁用任意Java版本都沒問題。
 ```
 	<build>
 		<plugins>
@@ -18,6 +19,31 @@ spring簡易RESTAPI程式碼範例-docker
         	</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+    <profile>
+      <id>coverage</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 ```   
 若要設定其他額外的細節也可寫在`app/pom.xml`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
 相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
