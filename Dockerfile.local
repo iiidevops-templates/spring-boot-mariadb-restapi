@@ -1,0 +1,9 @@
+FROM library/maven:3.6.3-openjdk-15 as builder
+COPY ./app /app
+WORKDIR /app
+RUN ls && mvn install -DskipTests
+FROM library/tomcat:jdk11
+RUN ["rm", "-rf", "/usr/local/tomcat/webapps/ROOT"]
+COPY --from=builder /app/target/*.jar /usr/local/tomcat/webapps/ROOT.jar
+CMD ["java","-jar","/usr/local/tomcat/webapps/ROOT.jar"]
+#RUN mvnw spring-boot:run

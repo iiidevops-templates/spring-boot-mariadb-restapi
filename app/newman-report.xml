@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="spring-rest-api" tests="5" time="0.689">
+  <testsuite name="http://web:8080/api/v1/employees" id="a0171e60-38fa-495b-bd3f-9939374fb463" timestamp="2021-03-10T03:32:41.934Z" tests="0" failures="0" errors="0" time="0.116"/>
+  <testsuite name="http://web:8080/api/v1/employees" id="21525a00-2546-41bc-beb1-56ec44cd22bd" timestamp="2021-03-10T03:32:41.934Z" tests="0" failures="0" errors="0" time="0.491"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="f788769b-124f-496b-9ffa-8f4858de92b9" timestamp="2021-03-10T03:32:41.934Z" tests="0" failures="0" errors="0" time="0.050"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="5de033a1-d2fb-4bc2-9494-a5c006659b2d" timestamp="2021-03-10T03:32:41.934Z" tests="0" failures="0" errors="0" time="0.017"/>
+  <testsuite name="http://web:8080/api/v1/employees/1" id="27db7e8a-b389-4842-ad22-26cd1df028b3" timestamp="2021-03-10T03:32:41.934Z" tests="0" failures="0" errors="0" time="0.015"/>
+</testsuites>
