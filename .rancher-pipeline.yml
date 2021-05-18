@@ -174,12 +174,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-postman
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-pm
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.1.0
+      version: 0.2.0
   when:
     branch:
       include:
       - master
-- name: Test--Webinspect
+- name: Test--WebInspect
   steps:
   - applyAppConfig:
       answers:
@@ -216,7 +216,7 @@ stages:
     branch:
       include:
       - master
-- name: Test Sideex Runner
+- name: Test--SideeX
   steps:
   - applyAppConfig:
       answers:
