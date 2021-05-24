@@ -18,7 +18,7 @@ stages:
       include:
       - master
       - develop
-- name: Test--Sonarqube source code scan
+- name: Test--Sonarqube for Java(Maven)
   steps:
   - runScriptConfig:
       image: library/maven:3.6.3-openjdk-11
