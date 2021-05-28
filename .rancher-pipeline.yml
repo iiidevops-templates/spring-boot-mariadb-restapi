@@ -1,24 +1,5 @@
 stages:
-- name: Build--build and push docker image
-  steps:
-  - env:
-      PLUGIN_BUILD_ARGS: --progress=tty --network=host
-      PLUGIN_DEBUG: 'true'
-      PLUGIN_INSECURE: 'true'
-      PLUGIN_MIRROR: https://harbor-dev3.iiidevops.org
-      PLUGIN_MTU: '1000'
-    publishImageConfig:
-      buildContext: .
-      dockerfilePath: ./Dockerfile
-      pushRemote: true
-      registry: harbor-dev3.iiidevops.org
-      tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
-  when:
-    branch:
-      include:
-      - master
-      - develop
-- name: Test--Sonarqube for Java(Maven)
+- name: Test--SonarQube for Java(Maven)
   steps:
   - runScriptConfig:
       image: library/maven:3.6.3-openjdk-11
@@ -32,6 +13,7 @@ stages:
       include:
       - master
       - develop
+
 - name: Test--Checkmarx source code scan
   steps:
   - applyAppConfig:
@@ -50,6 +32,7 @@ stages:
       include:
       - master
       - develop
+
 - name: Deploy--DB
   steps:
   - applyAppConfig:
@@ -72,6 +55,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Deploy--Wait DB deployment
   steps:
   - env:
@@ -93,7 +77,8 @@ stages:
     branch:
       include:
       - master
-- name: Deploy--Setting Web environment variables
+
+- name: Deploy--Set Web environment variables
   steps:
   - envFrom:
     - sourceKey: API_TOKEN
@@ -115,6 +100,26 @@ stages:
     branch:
       include:
       - master
+
+- name: Build--Build and push docker image
+  steps:
+  - env:
+      PLUGIN_BUILD_ARGS: --progress=tty --network=host
+      PLUGIN_DEBUG: 'true'
+      PLUGIN_INSECURE: 'true'
+      PLUGIN_MIRROR: https://harbor-dev3.iiidevops.org
+      PLUGIN_MTU: '1000'
+    publishImageConfig:
+      buildContext: .
+      dockerfilePath: ./Dockerfile
+      pushRemote: true
+      registry: harbor-dev3.iiidevops.org
+      tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+  when:
+    branch:
+      include:
+      - master
+
 - name: Deploy--Web including DB config
   steps:
   - applyAppConfig:
@@ -139,6 +144,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Deploy--Wait Web deployment
   steps:
   - env:
@@ -160,43 +166,7 @@ stages:
     branch:
       include:
       - master
-- name: Test--Postman
-  steps:
-  - applyAppConfig:
-      answers:
-        git.branch: ${CICD_GIT_BRANCH}
-        git.commitID: ${CICD_GIT_COMMIT}
-        git.repoName: ${CICD_GIT_REPO_NAME}
-        git.url: ${CICD_GIT_URL}
-        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
-        web.port: 8080
-      catalogTemplate: cattle-global-data:iii-dev-charts3-test-postman
-      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-pm
-      targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.0
-  when:
-    branch:
-      include:
-      - master
-- name: Test--WebInspect
-  steps:
-  - applyAppConfig:
-      answers:
-        git.branch: ${CICD_GIT_BRANCH}
-        git.commitID: ${CICD_GIT_COMMIT}
-        git.repoName: ${CICD_GIT_REPO_NAME}
-        git.url: ${CICD_GIT_URL}
-        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
-      catalogTemplate: cattle-global-data:iii-dev-charts3-test-webinspect
-      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-wi
-      targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.1.0
-  when:
-    branch:
-      include:
-      - master
+
 - name: Test--ZAP
   steps:
   - applyAppConfig:
@@ -216,6 +186,46 @@ stages:
     branch:
       include:
       - master
+
+- name: Test--WebInspect
+  steps:
+  - applyAppConfig:
+      answers:
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+      catalogTemplate: cattle-global-data:iii-dev-charts3-test-webinspect
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-wi
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.1.0
+  when:
+    branch:
+      include:
+      - master
+
+- name: Test--Postman
+  steps:
+  - applyAppConfig:
+      answers:
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        web.deployName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
+        web.port: 8080
+      catalogTemplate: cattle-global-data:iii-dev-charts3-test-postman
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-pm
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.2.0
+  when:
+    branch:
+      include:
+      - master
+
 - name: Test--SideeX
   steps:
   - applyAppConfig:
