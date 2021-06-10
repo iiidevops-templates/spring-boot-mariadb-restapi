@@ -136,10 +136,11 @@ stages:
         pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
         web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
         web.port: 8080
+        kube.ingress.base_domain: "ingress-dev3.iiidevops.org"
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.5.1
+      version: 0.5.2
   when:
     branch:
       include:
