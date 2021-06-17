@@ -67,7 +67,7 @@ spring簡易RESTAPI程式碼範例-docker
 相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
 
 ## 專案資料夾與檔案格式說明
-檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。  
+檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議，`app`資料夾內主要放入專案的程式碼(此為選擇性操作與Dockerfile的結構關聯較大)。
 
 | 型態 | 名稱 | 說明 | 路徑 |
 | --- | --- | --- | --- |
@@ -84,6 +84,7 @@ spring簡易RESTAPI程式碼範例-docker
 | 檔案 | postman_collection.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
 | 檔案 | postman_environment.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
 | 檔案 | Dockerfile | (可調整)devops k8s環境部屬檔案 | 根目錄 |
+| 檔案 | spring-mariadb-restapi.sql | (選擇性)資料庫初始匯入檔案，可為任意檔案名稱，副檔名.sql | 根目錄 |
 
 ## 開發者注意事項
 :warning: 若專案建立後程式碼Pull到local端下來無法執行, 此狀況為正常現象
@@ -148,10 +149,15 @@ ENV 環境變數名稱3 值3
 * `iiidevops`資料夾內`pipeline_settings.json`請勿更動
 * `postman`資料夾內則是您在devops管理網頁上的Postman-collection(newman)自動測試檔案，devops系統會以`postman`資料夾內檔案做自動測試
 * `Dockerfile`內可能會看到很多本地端`Dockerfile.local`都加上前墜dockerhub，此為必須需求，為使image能從harbor上擷取出Docker Hub的image來源
+* `iiidevops`提供`ZAP`掃描結果主要針對有首頁的網頁，對於API等服務可能效果不如預期
+* 
 
 ## iiidevops(only開發者可看的)
 * 透過UI所閱讀的ZAP掃描僅針對網頁，對API的服務掃描沒有太大參考，因此ZAP掃描在本地端透過OpenAPI來掃描產生報告，並存放在`app/owasp-report.md`
 * pipeline成功並非代表通過資安檢查或是測試，若須檢視每次的commit需前往UI網頁觀看結果
+* 資安掃描的結果各項解決方案細節除了Sonarqube可透過連結前往看各問題細節外，其餘可能均須透過UI下載報告再看簡易說明
+* 靜態程式碼掃描與程式碼維護性相關的細節不會顯示在UI上，須前往Sonarqube問題頁面觀看細節與解決方法教學。
+* 
 
 # Local範本開發
 此部分為Local的範本開發檔案，目前版本
