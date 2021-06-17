@@ -208,7 +208,7 @@ db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
 | 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部屬 |
 | --- | --- |
 | docker-compose down | docker-compose down -v | 
-## 修改 Postman-collection(newman)自動測試以及owasp掃描API目標
+## 修改 Postman-collection(newman)自動測試以及owasp掃描API(OpenAPI)目標
 當執行本地環境快速專案部屬時，會自動將您的網站與資料庫部屬完成後再進行postman測試以及owasp掃描
 * Postman自動測試的檔案在`app`資料夾內的`postman_collection_local.json` 使用者可以按照開發上的需求去進行修改
 * owasp ZAP自動掃描的檔案在`app`資料夾內的`openapi_local.yaml` 使用者可以按照開發上的需求去進行修改
