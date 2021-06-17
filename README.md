@@ -307,7 +307,7 @@ db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
   若您是在本地環境直接開發的話，可能會透過瀏覽器連http://localhost:8080
   而到了json檔案內就將http://localhost:8080改成http://web:8080即可
 ```
-然後執行`docker-compose up -d --build`就會自動產生postman報告與owasp ZAP掃描結果
+然後執行`docker-compose up -d --build`就會自動產生postman報告與owasp ZAP掃描結果(報告可能會與UI差異很大，因為UI不支援API掃描)
 
 
 ## 教學參考來源:
