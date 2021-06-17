@@ -121,8 +121,11 @@ ENV 環境變數名稱3 值3
 * `postman`資料夾內則是您在devops管理網頁上的Postman-collection(newman)自動測試檔案，devops系統會以`postman`資料夾內檔案做自動測試
 * `Dockerfile`內可能會看到很多本地端`Dockerfile.local`都加上前墜dockerhub，此為必須需求，為使image能從harbor上擷取出Docker Hub的image來源
 
+## iiidevops(only開發者可看的)
+* 透過UI所閱讀的ZAP掃描僅針對網頁，對API的服務掃描沒有太大參考，因此ZAP掃描在本地端透過OpenAPI來掃描產生報告，並存放在`app/owasp-report.md`
+
 # Local範本開發
-此部分為Local的範本開發檔案
+此部分為Local的範本開發檔案，目前版本
 
 ## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
 需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料  
