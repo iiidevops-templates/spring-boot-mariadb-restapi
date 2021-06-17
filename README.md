@@ -123,6 +123,7 @@ ENV 環境變數名稱3 值3
 
 ## iiidevops(only開發者可看的)
 * 透過UI所閱讀的ZAP掃描僅針對網頁，對API的服務掃描沒有太大參考，因此ZAP掃描在本地端透過OpenAPI來掃描產生報告，並存放在`app/owasp-report.md`
+* pipeline成功並非代表通過資安檢查或是測試，若須檢視每次的commit需前往UI網頁觀看結果
 
 # Local範本開發
 此部分為Local的範本開發檔案，目前版本
