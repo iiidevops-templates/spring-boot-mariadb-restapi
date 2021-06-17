@@ -114,6 +114,34 @@ ENV 環境變數名稱2 值2
 ENV 環境變數名稱3 值3
 ```
 
+## 簡易環境介紹說明
+* Docker Image: `maven`:`3.6.3-openjdk-15`
+* 其他潛在可選maven Docker Image環境(不一定iiidevops環境支援): 
+  * 3.8.1-jdk-11, 3.8-jdk-11, 3-jdk-11, 3.8.1-openjdk-11, 3.8-openjdk-11, 3-openjdk-11
+  * 3.8.1-jdk-11-openj9, 3.8-jdk-11-openj9, 3-jdk-11-openj9, 3.8.1-adoptopenjdk-11-openj9, 3.8-adoptopenjdk-11-openj9, 3-adoptopenjdk-11-openj9
+  * 3.8.1-jdk-11-slim, 3.8-jdk-11-slim, 3-jdk-11-slim, 3.8.1-openjdk-11-slim, 3.8-openjdk-11-slim, 3-openjdk-11-slim
+  * 3.8.1-jdk-8, 3.8-jdk-8, 3-jdk-8, 3.8.1-openjdk-8, 3.8-openjdk-8, 3-openjdk-8
+  * 3.8.1-jdk-8-openj9, 3.8-jdk-8-openj9, 3-jdk-8-openj9, 3.8.1-adoptopenjdk-8-openj9, 3.8-adoptopenjdk-8-openj9, 3-adoptopenjdk-8-openj9
+  * 3.8.1-jdk-8-slim, 3.8-jdk-8-slim, 3-jdk-8-slim, 3.8.1-openjdk-8-slim, 3.8-openjdk-8-slim, 3-openjdk-8-slim
+  * 3.8.1-openjdk-15, 3.8-openjdk-15, 3-openjdk-15
+  * 3.8.1-openjdk-15-slim, 3.8-openjdk-15-slim, 3-openjdk-15-slim
+  * 3.8.1-openjdk-16, 3.8.1, 3.8.1-openjdk, 3.8-openjdk-16, 3.8, 3.8-openjdk, 3-openjdk-16, 3, latest, 3-openjdk, openjdk
+  * 3.8.1-openjdk-16-slim, 3.8-openjdk-16-slim, 3-openjdk-16-slim
+  * 3.8.1-openjdk-17, 3.8-openjdk-17, 3-openjdk-17
+  * 3.8.1-openjdk-17-slim, 3.8-openjdk-17-slim, 3-openjdk-17-slim
+  * 3.8.1-adoptopenjdk-11, 3.8-adoptopenjdk-11, 3-adoptopenjdk-11
+  * 3.8.1-adoptopenjdk-15, 3.8.1-adoptopenjdk, 3.8-adoptopenjdk-15, 3.8-adoptopenjdk, 3-adoptopenjdk-15, 3-adoptopenjdk, adoptopenjdk
+  * 3.8.1-adoptopenjdk-15-openj9, 3.8-adoptopenjdk-15-openj9, 3-adoptopenjdk-15-openj9
+  * 3.8.1-adoptopenjdk-16, 3.8-adoptopenjdk-16, 3-adoptopenjdk-16
+  * 3.8.1-adoptopenjdk-16-openj9, 3.8-adoptopenjdk-16-openj9, 3-adoptopenjdk-16-openj9
+  * 3.8.1-adoptopenjdk-8, 3.8-adoptopenjdk-8, 3-adoptopenjdk-8
+  * 3.8.1-ibmjava-8, 3.8.1-ibmjava, 3.8-ibmjava-8, 3.8-ibmjava, 3-ibmjava-8, 3-ibmjava, ibmjava
+  * 3.8.1-ibmjava-8-alpine, 3.8.1-ibmjava-alpine, 3.8-ibmjava-8-alpine, 3.8-ibmjava-alpine, 3-ibmjava-8-alpine, ibmjava-alpine
+  * 3.8.1-amazoncorretto-11, 3.8.1-amazoncorretto, 3.8-amazoncorretto-11, 3.8-amazoncorretto, 3-amazoncorretto-11, 3-amazoncorretto, amazoncorretto
+  * 3.8.1-amazoncorretto-15, 3.8-amazoncorretto-15, 3-amazoncorretto-15
+  * 3.8.1-amazoncorretto-16, 3.8-amazoncorretto-16, 3-amazoncorretto-16
+  * 3.8.1-amazoncorretto-8, 3.8-amazoncorretto-8, 3-amazoncorretto-8
+
 ## iiidevops
 * 專案內`.rancher-pipeline.yml`請勿更動，產品系統設計上不支援pipeline修改
 * 目前系統pipeline限制，因此寫的服務請一定要在port:`8080`，資料庫類型無法更改。
