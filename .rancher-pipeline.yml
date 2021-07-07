@@ -114,7 +114,7 @@ stages:
       dockerfilePath: ./Dockerfile
       pushRemote: true
       registry: harbor-dev3.iiidevops.org
-      tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+      tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
   when:
     branch:
       include:
@@ -134,7 +134,7 @@ stages:
         git.url: ${CICD_GIT_URL}
         harbor.host: harbor-dev3.iiidevops.org
         pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-        web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+        web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
         web.port: 8080
         kube.ingress.base_domain: "ingress-dev3.iiidevops.org"
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
