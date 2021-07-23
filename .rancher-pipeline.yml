@@ -1,5 +1,6 @@
 stages:
 - name: Test--SonarQube for Java(Maven)
+  iiidevops: sonarqube
   steps:
   - runScriptConfig:
       image: library/maven:3.6.3-openjdk-11
@@ -15,6 +16,7 @@ stages:
       - develop
 
 - name: Test--Checkmarx source code scan
+  iiidevops: checkmarx
   steps:
   - applyAppConfig:
       answers:
@@ -34,6 +36,7 @@ stages:
       - develop
 
 - name: Deploy--DB
+  iiidevops: deployed-environments
   steps:
   - applyAppConfig:
       answers:
@@ -57,6 +60,7 @@ stages:
       - master
 
 - name: Deploy--Wait DB deployment
+  iiidevops: deployed-environments
   steps:
   - env:
       deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
@@ -79,6 +83,7 @@ stages:
       - master
 
 - name: Deploy--Set Web environment variables
+  iiidevops: deployed-environments
   steps:
   - envFrom:
     - sourceKey: API_TOKEN
@@ -102,6 +107,7 @@ stages:
       - master
 
 - name: Build--Build and push docker image
+  iiidevops: deployed-environments
   steps:
   - env:
       PLUGIN_BUILD_ARGS: --progress=tty --network=host
@@ -121,6 +127,7 @@ stages:
       - master
 
 - name: Deploy--Web including DB config
+  iiidevops: deployed-environments
   steps:
   - applyAppConfig:
       answers:
@@ -147,6 +154,7 @@ stages:
       - master
 
 - name: Deploy--Wait Web deployment
+  iiidevops: deployed-environments
   steps:
   - env:
       deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
@@ -169,6 +177,7 @@ stages:
       - master
 
 - name: Test--ZAP
+  iiidevops: zap
   steps:
   - applyAppConfig:
       answers:
@@ -189,6 +198,7 @@ stages:
       - master
 
 - name: Test--WebInspect
+  iiidevops: webinspect
   steps:
   - applyAppConfig:
       answers:
@@ -208,6 +218,7 @@ stages:
       - master
 
 - name: Test--Postman
+  iiidevops: postman
   steps:
   - applyAppConfig:
       answers:
@@ -228,6 +239,7 @@ stages:
       - master
 
 - name: Test--SideeX
+  iiidevops: sideex
   steps:
   - applyAppConfig:
       answers:
