@@ -55,8 +55,8 @@ CREATE TABLE `hibernate_sequence` (
 -- 傾印資料表的資料 `hibernate_sequence`
 --
 
-INSERT INTO `hibernate_sequence` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
-(1, 1, 9223372036854775806, 1, 1, 1000, 0, 0);
+-- INSERT INTO `hibernate_sequence` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+-- (1, 1, 9223372036854775806, 1, 1, 1000, 0, 0);
 
 --
 -- 已傾印資料表的索引
