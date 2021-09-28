@@ -29,7 +29,7 @@
                 "options": [
                   {
                     "type": "other",
-                    "value": "${target_origin}/api/v1/employees"
+                    "value": "${target_url}/api/v1/employees"
                   }
                 ],
                 "tac": ""
@@ -39,7 +39,7 @@
                 "options": [
                   {
                     "type": "other",
-                    "value": "${target_origin}/api/v1/employees"
+                    "value": "${target_url}/api/v1/employees"
                   }
                 ],
                 "tac": ""
