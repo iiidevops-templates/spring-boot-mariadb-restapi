@@ -97,7 +97,8 @@ stages:
       image: iiiorg/rancher-cli:v2.4.6
       shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify
         && rancher kubectl delete configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env
-        --ignore-not-found=true && rancher kubectl create configmap -n ${CICD_GIT_REPO_NAME}
+        --ignore-not-found=true && perl iiidevops/bin/chk-app-env.pl ${CICD_GIT_BRANCH}
+        && rancher kubectl create configmap -n ${CICD_GIT_REPO_NAME}
         ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env --from-env-file=iiidevops/app.env
         && rancher kubectl annotate configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env
         iiidevops.org/project_name=${CICD_GIT_REPO_NAME} iiidevops.org/branch=${CICD_GIT_BRANCH}
