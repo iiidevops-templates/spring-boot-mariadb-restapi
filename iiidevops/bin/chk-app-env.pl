@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 use Carp;
 
-$branch = defined($ARGV[0])?lc($ARGV[0]):'master';
-$options = defined($ARGV[1])?lc($ARGV[1]):'none';
+$options = defined($ARGV[0])?lc($ARGV[0]):'none';
+$branch = $ENV{'CICD_GIT_BRANCH'};
 $env_file = 'iiidevops/app.env';
 $branch_env_file = "$env_file.$branch";
 if (-e $branch_env_file) {
@@ -14,11 +14,11 @@ if (-e $branch_env_file) {
 	while(<FH>){
 		$tmpl .= $_;
 	}
-	close(FH);
+	close(FH) or croak "error closing $branch_env_file: stopped";
 	
 	open(FH, '>', $env_file) or croak "error opening $env_file: stopped";
 	print FH $tmpl;
-	close(FH);	
+	close(FH) or croak "error closing $env_file: stopped";
 }
 else {
 	print("Useing env_file : [$env_file]..\n");
