@@ -1,6 +1,6 @@
 {
   "name": "Java Spring Boot (Maven) with MariaDB - RESTful API",
-  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API範本說明</a><hr size=1 /><b>v1.11.0</b>  <li>預設只開啟SonarQube掃描功能<br /><b>v1.10.0</b>  <li>支援定義各分支環境變數功能",
+  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API範本說明</a><hr size=1 /><b>v1.12.0</b>  <li>增加執行剖析 git 訊息功能<br /><b>v1.11.0</b>  <li>預設只開啟SonarQube掃描功能<br />",
   "arguments": [
     {
       "key": "db.username",
