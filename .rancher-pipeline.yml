@@ -1,6 +1,6 @@
 stages:
-- name: Integration--plan and code
-  iiidevops: intgr-plan-code
+- name: Integration--initial pipeline
+  iiidevops: initial-pipeline
   steps:
   - envFrom:
     - sourceKey: api-origin
@@ -8,7 +8,9 @@ stages:
       targetKey: api_origin
     runScriptConfig:
       image: iiiorg/rancher-cli:v2.4.6
-      shellScript: curl --location --request POST ${api_origin}/project/issues_commit_by_name
+      shellScript: curl --location -s --request POST ${api_origin}/rancher/delete_app
+        --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
+        && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
   when:
     branch:
@@ -113,11 +115,12 @@ stages:
       image: iiiorg/rancher-cli:v2.4.6
       shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify
         && rancher kubectl delete configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env
-        --ignore-not-found=true && perl iiidevops/bin/chk-app-env.pl && rancher kubectl create configmap -n ${CICD_GIT_REPO_NAME}
-        ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env --from-env-file=iiidevops/app.env
-        && rancher kubectl annotate configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env
-        iiidevops.org/project_name=${CICD_GIT_REPO_NAME} iiidevops.org/branch=${CICD_GIT_BRANCH}
-        iiidevops.org/commit_id=${CICD_GIT_COMMIT} iiidevops.org/type=appenv
+        --ignore-not-found=true && perl iiidevops/bin/chk-app-env.pl && rancher kubectl
+        create configmap -n ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env
+        --from-env-file=iiidevops/app.env && rancher kubectl annotate configmap -n
+        ${CICD_GIT_REPO_NAME} ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-env iiidevops.org/project_name=${CICD_GIT_REPO_NAME}
+        iiidevops.org/branch=${CICD_GIT_BRANCH} iiidevops.org/commit_id=${CICD_GIT_COMMIT}
+        iiidevops.org/type=appenv
   when:
     branch:
       include:
