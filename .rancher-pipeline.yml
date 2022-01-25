@@ -30,7 +30,7 @@ stages:
       targetKey: rancher_url
     runScriptConfig:
       image: library/maven:3.6.3-openjdk-11
-      shellScript: chmod 777 SonarScan.sh; ./SonarScan.sh
+      shellScript: chmod 777 SonarScan; ./SonarScan
   when:
     branch:
       include:
