@@ -17,40 +17,23 @@ stages:
       include:
       - master
       - develop
-- name: get-sonar-token
-  iiidevops: get-token
-  steps:
-  - envFrom:
-    - sourceKey: API_TOKEN
-      sourceName: pipeline-api-key
-      targetKey: rancher_api_token
-    - sourceKey: rancher-url
-      sourceName: rancher
-      targetKey: rancher_url
-    runScriptConfig:
-      image: iiiorg/rancher-cli:v2.4.6
-      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify
-        && export TOKEN=$(rancher kubectl get secret sonar-bot -n ${CICD_GIT_REPO_NAME} -o=go-template='{{index
-        .data "sonar-token"}}' | base64 -d) && echo $TOKEN > token.txt
-  when:
-    branch:
-      include:
-      - master
+
 - name: Test--SonarQube for Java(Maven)
   iiidevops: sonarqube
   steps:
   - runScriptConfig:
       image: library/maven:3.6.3-openjdk-11
-      shellScript: export SONAR_TOKEN=$(cat token.txt) && echo $SONAR_TOKEN && ls && cd app && mvn install -DskipTests && mvn clean -DskipTests
+      shellScript: ls && cd app && mvn install -DskipTests && mvn clean -DskipTests
         verify sonar:sonar -Dsonar.host.url=http://sonarqube-server-service.default:9000
         -Dsonar.projectName=${CICD_GIT_REPO_NAME} -Dsonar.projectKey=${CICD_GIT_REPO_NAME}
         -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT} -Dsonar.log.level=DEBUG
-        -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600 -Dsonar.login=$SONAR_TOKEN
+        -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600
   when:
     branch:
       include:
       - master
       - develop
+
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -65,11 +48,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-scan-checkmarx
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.0
+      version: 0.2.1
   when:
     branch:
       include:
       - skip-master
+
 - name: Deploy--DB
   iiidevops: deployed-environments
   steps:
@@ -85,14 +69,16 @@ stages:
         git.commitID: ${CICD_GIT_COMMIT}
         git.repoName: ${CICD_GIT_REPO_NAME}
         git.url: ${CICD_GIT_URL}
+        harbor.host: harbor-dev3.iiidevops.org
       catalogTemplate: cattle-global-data:iii-dev-charts3-db
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.1
+      version: 0.3.3
   when:
     branch:
       include:
       - skip-master
+
 - name: Deploy--Wait DB deployment
   iiidevops: deployed-environments
   steps:
@@ -115,6 +101,7 @@ stages:
     branch:
       include:
       - skip-master
+
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -139,6 +126,7 @@ stages:
     branch:
       include:
       - skip-master
+
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -158,6 +146,7 @@ stages:
     branch:
       include:
       - skip-master
+
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -172,6 +161,7 @@ stages:
         git.repoName: ${CICD_GIT_REPO_NAME}
         git.url: ${CICD_GIT_URL}
         harbor.host: harbor-dev3.iiidevops.org
+        imagePullSecrets[0].name: harbor-local
         pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
         web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
         web.port: 8080
@@ -179,11 +169,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.5.3
+      version: 0.5.9
   when:
     branch:
       include:
       - skip-master
+
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -206,6 +197,7 @@ stages:
     branch:
       include:
       - skip-master
+
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -222,11 +214,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-zap
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-zap
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.0
+      version: 0.2.1
   when:
     branch:
       include:
       - skip-master
+
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -242,11 +235,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-webinspect
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-wi
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.0
+      version: 0.2.1
   when:
     branch:
       include:
-      - skip
+      - skip-master
+
 - name: Test--Postman
   iiidevops: postman
   steps:
@@ -263,11 +257,12 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-postman
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-pm
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.0
+      version: 0.3.1
   when:
     branch:
       include:
       - skip-master
+
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -284,8 +279,9 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-sideex
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sdx
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.0
+      version: 0.3.1
   when:
     branch:
       include:
       - skip-master
+
