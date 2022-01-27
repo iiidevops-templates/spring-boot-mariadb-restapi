@@ -1,11 +1,11 @@
-## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
-需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料  
-:warning: 這個專案部屬的時間會比較久，最快大約也需要3~5分鐘請慢慢等候
+## (local)本地環境隔離快速專案部署(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
+需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部署內容結果應與UI相同，但不會清空資料庫資料  
+:warning: 這個專案部署的時間會比較久，最快大約也需要3~5分鐘請慢慢等候
 ``` 
 docker-compose up -d --build 
 ```
-部屬包含spring API網頁 + Postman-collection(newman)自動測試, 自動測試報告結果會自動產生在`app/newman-report.xml`, 驗證後即可上傳程式碼
-### 查看部屬結果 `docker-compose ps`
+部署包含spring API網頁 + Postman-collection(newman)自動測試, 自動測試報告結果會自動產生在`app/newman-report.xml`, 驗證後即可上傳程式碼
+### 查看部署結果 `docker-compose ps`
 ```sh
                        Name                                     Command                  State                    Ports
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -16,13 +16,13 @@ docker-spring-maraidb-restapi_postman_collection_1   newman run /etc/postman/po 
 docker-spring-maraidb-restapi_swaggereditor_1        /docker-entrypoint.sh sh / ...   Up             80/tcp, 0.0.0.0:49352->8080/tcp
 docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca ...   Up (healthy)   0.0.0.0:49355->8080/tcp
 ```
-由上述結果(Name與Ports)可以查詢出部屬的網站位置(localhost可換成主機IP)
+由上述結果(Name與Ports)可以查詢出部署的網站位置(localhost可換成主機IP)
 | Name | Ports | 說明 |
 | --- | --- | --- |
 | docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過 http://localhost:49355/api/v1/employees 連線 | 
 | docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過 http://localhost:49353/api/v1/employees 連線 |
 | docker-spring-maraidb-restapi_swaggereditor_1 | 80/tcp, 0.0.0.0:49352->8080/tcp | 代表OpenAPI線上編輯器可透過 http://localhost:49352/api/v1/employees 連線 |
-### 查看與追蹤部屬的網頁伺服器紀錄Log `docker-compose logs -f web`
+### 查看與追蹤部署的網頁伺服器紀錄Log `docker-compose logs -f web`
 可用`Ctrl+V`來離開Log追蹤
 ```sh
 web_1                 |
@@ -48,7 +48,7 @@ web_1                 | 2021-03-10 03:32:36.464  INFO 1 --- [nio-8080-exec-1] o.
 web_1                 | 2021-03-10 03:32:36.465  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 web_1                 | 2021-03-10 03:32:36.471  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
 ```
-### 查看與追蹤部屬的資料庫紀錄Log `docker-compose logs -f db`
+### 查看與追蹤部署的資料庫紀錄Log `docker-compose logs -f db`
 可用`Ctrl+V`來離開Log追蹤
 ```sh
 db_1                  | mariadb 09:14:16.70
@@ -74,12 +74,12 @@ db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
 | 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
 | --- | --- | --- | --- | --- |
 | Mysql | db | root | mypassword | springboot_demo |
-### 清除快速部屬
-| 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部屬 |
+### 清除快速部署
+| 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部署 |
 | --- | --- |
 | docker-compose down | docker-compose down -v | 
 ## 修改 Postman-collection(newman)自動測試以及owasp掃描API目標
-當執行本地環境快速專案部屬時，會自動將您的網站與資料庫部屬完成後再進行postman測試以及owasp掃描
+當執行本地環境快速專案部署時，會自動將您的網站與資料庫部署完成後再進行postman測試以及owasp掃描
 * Postman自動測試的檔案在`app`資料夾內的`postman_collection_local.json` 使用者可以按照開發上的需求去進行修改
 * owasp ZAP自動掃描的檔案在`app`資料夾內的`openapi_local.yaml` 使用者可以按照開發上的需求去進行修改
 :warning: 

@@ -1,9 +1,10 @@
-Docker spring maraidb RESTAPI
+# Java Spring Boot (Maven) with MariaDB - RESTful API
 spring簡易RESTAPI程式碼範例-docker
 
 ## 如何增加Sonarqube掃描(用預設的QualiyGate)
 在`app/pom.xml`的檔案內plugins新增如下段落後pipeline即可運行Sonarqube掃描，(此專案Sonarqube掃描不包含Unit Test)  
-在Spring專案的Sonarqube掃描會在openjdk11的環境執行(目前安裝僅支援到java11)，但是對Dockerfile編寫或是部屬的網頁用任意Java版本都沒問題。
+在Spring專案的Sonarqube掃描會在openjdk11的環境執行(目前安裝僅支援到java11)，但是對Dockerfile編寫或是部署的網頁用任意Java版本都沒問題。
+
 ```
 	<build>
 		<plugins>
@@ -44,7 +45,7 @@ spring簡易RESTAPI程式碼範例-docker
       </build>
     </profile>
   </profiles>
-```   
+```
 ### 如何關閉Sonarqube UnitTest
 在`SonarScan`內修改特定段落內新增`-DskipTests`即可跳過unit Test，以下為跳過unit Test範例，跳過unit Test後則不會出現覆蓋率
 ```
@@ -56,7 +57,7 @@ mvn clean -DskipTests verify sonar:sonar -Dsonar.host.url=http://sonarqube-serve
 	-Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
 	-Dsonar.login=$SONAR_TOKEN
 ```
-jacoco Coverage 參考說明
+### jacoco Coverage 參考說明
 https://dzone.com/articles/reporting-code-coverage-using-maven-and-jacoco-plu
 https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-Report-in-VSCode
 
@@ -64,281 +65,67 @@ https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-
 相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
 
 ## 專案資料夾與檔案格式說明
-檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議，`app`資料夾內主要放入專案的程式碼(此為選擇性操作與Dockerfile的結構關聯較大)。
+檔案可按照需求做修改，`postman_collection_local.json`是要快速部署時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議，`app`資料夾內主要放入專案的程式碼(此為選擇性操作與Dockerfile的結構關聯較大)。
 
 | 型態 | 名稱 | 說明 | 路徑 |
 | --- | --- | --- | --- |
-| 資料夾 | app | 專案主要程式碼 | 根目錄 |
-| 檔案 | Dockerfile.local | (可調整)本地端部屬使用 | 根目錄 |
-| 檔案 | docker-compose.yaml | (可調整)本地端快速部屬使用 | 根目錄 |
-| 檔案 | postman_collection_local.json | (可調整)本地端快速部屬使用(Postman collection) | 在app資料夾內 |
-| 檔案 | openapi_local.yaml | (可調整)本地端快速部屬使用(openAPI文件) | 在app資料夾內 | 
-| 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | 在app資料夾內 |
-| 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | 在app資料夾內 |
-| 資料夾 | iiidevops | :warning: devops系統測試所需檔案 | 在根目錄 |
-| 檔案 | .rancher-pipeline.yml | :warning: (不可更動)devops系統測試所需檔案 | 在根目錄 |
-| 檔案 | pipeline_settings.json | :warning: (不可更動)devops系統測試所需檔案 | 在iiidevops資料夾內 |
-| 檔案 | postman_collection.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
-| 檔案 | postman_environment.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
-| 檔案 | Dockerfile | (可調整)devops k8s環境部屬檔案 | 根目錄 |
+| 檔案 | .rancher-pipeline.yml | :warning: (不可更動)devops系統所需檔案 | 根目錄 |
+| 檔案 | docker-compose.yaml | (可調整)本地端快速部署使用 | 根目錄 |
+| 檔案 | Dockerfile | (可調整)devops k8s環境部署檔案 | 根目錄 |
+| 檔案 | Dockerfile.local | (可調整)本地端部署使用 | 根目錄 |
+| 檔案 | README.local.md | 本地端使用說明文件 | 根目錄 |
+| 檔案 | README.md | 本說明文件 | 根目錄 |
+| 檔案 | SonarScan | (可調整)整合SonarQube執行檔案 | 根目錄 |
 | 檔案 | spring-mariadb-restapi.sql | (選擇性)資料庫初始匯入檔案，可為任意檔案名稱，副檔名.sql | 根目錄 |
+| 資料夾 | app | 專案主要程式碼 | 根目錄 |
+| 檔案 | postman_collection_local.json | (可調整)本地端快速部署使用(Postman collection) | app |
+| 檔案 | openapi_local.yaml | (可調整)本地端快速部署使用(openAPI文件) | app |
+| 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | app |
+| 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | app |
+| 資料夾 | iiidevops | :warning: devops系統測試所需檔案 | 根目錄 |
+| 檔案 | app.env | (可調整)提供實證環境之環境變數(env)定義檔 | iiidevops |
+| 檔案 | app.env.develop | (可調整)提供特定分支(develop)實證環境之環境變數(env)定義檔 | iiidevops |
+| 檔案 | pipeline_settings.json | :warning: (不可更動)devops系統測試所需檔案 | iiidevops |
+| 資料夾 | bin | :warning: devops系統測試所需執行檔案 | iiidevops |
+| 資料夾 | postman | :warning: devops系統整合postman測試所需執行檔案 | iiidevops |
+| 檔案 | postman_collection.json | (可調整)devops newman部署測試檔案 | iiidevops/postman |
+| 檔案 | postman_environment.json | (可調整)devops newman部署測試檔案 | iiidevops/postman |
+| 資料夾 | sideex | :warning: devops系統測整合sideex試所需執行檔案 | iiidevops |
+| 檔案 | Global Variables.json | (可調整)devops sideex部署測試檔案 | iiidevops/sideex |
+| 檔案 | sideex.json | (可調整)devops sideex部署測試檔案 | iiidevops/sideex |
 
 ## 開發者注意事項
-:warning: 若專案建立後程式碼Pull到local端下來無法執行, 此狀況為正常現象
-* 要在local端測試部屬提供兩種方式，透過安裝docker來進行專案快速專案部屬或直接修改我您作業系統的環境變數
-* 若非用docker快速部屬想直接採用原本安裝在作業系統上的資料庫的話，請設定環境變數
-```env
-`db_host`: 指向到您的資料庫，例如localhost或是其他IP
-`db_name`: 指向到您的資料庫名稱
-`db_username`: 指向到您的資料庫使用者名稱
-`db_password`: 指向到您的資料庫密碼
-```
+* :warning: 若專案建立後程式碼Pull到local端測試, 可參考以下兩個處理方式
+  * 透過docker-compose來進行專案快速部署並直接修改符合您作業的環境變數
+  * 使用docker部署, 並設定環境變數連上已經建置好的 mysql 或 mariadb, 需要設定環境變數如下:
+  ```env
+  `db_host`: 指向到您的資料庫，例如localhost或是其他IP
+  `db_name`: 指向到您的資料庫名稱
+  `db_username`: 指向到您的資料庫使用者名稱
+  `db_password`: 指向到您的資料庫密碼
+  ```
 
 ## 修改程式碼注意事項
 1. 修改資料庫連線  
-由於系統採用固定獨特的環境變數作為資料庫連線方法, 因此專案的資料庫連線部分請勿更動`app/src/main/resources/application.properties`內的
+由於此範本包含自動建立出全新的開發用資料庫, 因此在 pipeline 執行過程會透過環境變數來設定資料庫位址與帳號密碼, 因此專案的資料庫連線部分請不要更動`app/src/main/resources/application.properties`內的
 ```
 spring.datasource.url=jdbc:mariadb://${db_host}:3306/${db_name}
 spring.datasource.username=${db_username}
 spring.datasource.password=${db_password}
 ```
 2. 修改環境版本  
-而環境版本若非maven:3.6.3 JDK15, 想要更換環境版本請至`Dockefile`修改為自己想要的版本(如需要本機上做測試則須一併連同`Dockerfile.local`去做修改)
-3. 部屬環境額外環境變數
-若開發需求上可能有針對專案需要的特別環境變數，由於目前此需求不再系統開發考慮範圍內，因此可能要麻煩使用者透過修改`Dockerfile`的形式去加入
-```dockerfile
-ENV 環境變數名稱1 值1
-ENV 環境變數名稱2 值2
-ENV 環境變數名稱3 值3
-```
-
-## 簡易環境介紹說明
-* Docker Image: `maven`:`3.6.3-openjdk-15`
-* 其他潛在可選maven Docker Image環境(不一定iiidevops環境支援): 
-  * 3.8.1-jdk-11, 3.8-jdk-11, 3-jdk-11, 3.8.1-openjdk-11, 3.8-openjdk-11, 3-openjdk-11
-  * 3.8.1-jdk-11-openj9, 3.8-jdk-11-openj9, 3-jdk-11-openj9, 3.8.1-adoptopenjdk-11-openj9, 3.8-adoptopenjdk-11-openj9, 3-adoptopenjdk-11-openj9
-  * 3.8.1-jdk-11-slim, 3.8-jdk-11-slim, 3-jdk-11-slim, 3.8.1-openjdk-11-slim, 3.8-openjdk-11-slim, 3-openjdk-11-slim
-  * 3.8.1-jdk-8, 3.8-jdk-8, 3-jdk-8, 3.8.1-openjdk-8, 3.8-openjdk-8, 3-openjdk-8
-  * 3.8.1-jdk-8-openj9, 3.8-jdk-8-openj9, 3-jdk-8-openj9, 3.8.1-adoptopenjdk-8-openj9, 3.8-adoptopenjdk-8-openj9, 3-adoptopenjdk-8-openj9
-  * 3.8.1-jdk-8-slim, 3.8-jdk-8-slim, 3-jdk-8-slim, 3.8.1-openjdk-8-slim, 3.8-openjdk-8-slim, 3-openjdk-8-slim
-  * 3.8.1-openjdk-15, 3.8-openjdk-15, 3-openjdk-15
-  * 3.8.1-openjdk-15-slim, 3.8-openjdk-15-slim, 3-openjdk-15-slim
-  * 3.8.1-openjdk-16, 3.8.1, 3.8.1-openjdk, 3.8-openjdk-16, 3.8, 3.8-openjdk, 3-openjdk-16, 3, latest, 3-openjdk, openjdk
-  * 3.8.1-openjdk-16-slim, 3.8-openjdk-16-slim, 3-openjdk-16-slim
-  * 3.8.1-openjdk-17, 3.8-openjdk-17, 3-openjdk-17
-  * 3.8.1-openjdk-17-slim, 3.8-openjdk-17-slim, 3-openjdk-17-slim
-  * 3.8.1-adoptopenjdk-11, 3.8-adoptopenjdk-11, 3-adoptopenjdk-11
-  * 3.8.1-adoptopenjdk-15, 3.8.1-adoptopenjdk, 3.8-adoptopenjdk-15, 3.8-adoptopenjdk, 3-adoptopenjdk-15, 3-adoptopenjdk, adoptopenjdk
-  * 3.8.1-adoptopenjdk-15-openj9, 3.8-adoptopenjdk-15-openj9, 3-adoptopenjdk-15-openj9
-  * 3.8.1-adoptopenjdk-16, 3.8-adoptopenjdk-16, 3-adoptopenjdk-16
-  * 3.8.1-adoptopenjdk-16-openj9, 3.8-adoptopenjdk-16-openj9, 3-adoptopenjdk-16-openj9
-  * 3.8.1-adoptopenjdk-8, 3.8-adoptopenjdk-8, 3-adoptopenjdk-8
-  * 3.8.1-ibmjava-8, 3.8.1-ibmjava, 3.8-ibmjava-8, 3.8-ibmjava, 3-ibmjava-8, 3-ibmjava, ibmjava
-  * 3.8.1-ibmjava-8-alpine, 3.8.1-ibmjava-alpine, 3.8-ibmjava-8-alpine, 3.8-ibmjava-alpine, 3-ibmjava-8-alpine, ibmjava-alpine
-  * 3.8.1-amazoncorretto-11, 3.8.1-amazoncorretto, 3.8-amazoncorretto-11, 3.8-amazoncorretto, 3-amazoncorretto-11, 3-amazoncorretto, amazoncorretto
-  * 3.8.1-amazoncorretto-15, 3.8-amazoncorretto-15, 3-amazoncorretto-15
-  * 3.8.1-amazoncorretto-16, 3.8-amazoncorretto-16, 3-amazoncorretto-16
-  * 3.8.1-amazoncorretto-8, 3.8-amazoncorretto-8, 3-amazoncorretto-8
+若實際開發使用並非maven:3.6.3 JDK15, 請至`Dockefile`修改為自己想要的版本(如需要本機上做測試則須一併連同`Dockerfile.local`去做修改)
 
 ## iiidevops
-* 專案內`.rancher-pipeline.yml`請勿更動，產品系統設計上不支援pipeline修改
-* 目前系統pipeline限制，因此寫的服務請一定要在port:`8080`，資料庫類型無法更改。
-* `iiidevops`資料夾內`pipeline_settings.json`請勿更動
-* `postman`資料夾內則是您在devops管理網頁上的Postman-collection(newman)自動測試檔案，devops系統會以`postman`資料夾內檔案做自動測試
-* `Dockerfile`內可能會看到很多本地端`Dockerfile.local`都加上前墜dockerhub，此為必須需求，為使image能從harbor上擷取出Docker Hub的image來源
-* `iiidevops`提供`ZAP`掃描結果主要針對有首頁的網頁，對於API等服務可能效果不如預期
-* 
+* 專案內`.rancher-pipeline.yml`除非已很了解 yml 與 rancher pipeline 的語法, 否則更動後可能會造成 pipeline 無法正常運作
+* 目前此範本依照 tomcat 預設服務定義 port:8080，如果需要更改其他 port , 就需要將 `.rancher-pipeline.yml` 內所有 web.port: 定義的 port 號。
+* `iiidevops`資料夾內
+  * `postman`資料夾內則是devops整合API測試(postman)的自動測試檔案放置目錄，devops系統會以`postman`資料夾內 postman_collection.json 檔案做自動測試
+  * `sideex`資料夾內則是devops整合Web測試(sideex)的自動測試檔案放置目錄，devops系統會以`sideex`資料夾內 sideex 匯出的 json 檔案做自動測試
+* `Dockerfile`內加上前墜dockerhub，是為使image能透過本地端harbor擔任Image Proxy去抓取出Docker Hub的Images
 
-## iiidevops(only開發者可看的)
-* 透過UI所閱讀的ZAP掃描僅針對網頁，對API的服務掃描沒有太大參考，因此ZAP掃描在本地端透過OpenAPI來掃描產生報告，並存放在`app/owasp-report.md`
-* pipeline成功並非代表通過資安檢查或是測試，若須檢視每次的commit需前往UI網頁觀看結果
-* 資安掃描的結果各項解決方案細節除了Sonarqube可透過連結前往看各問題細節外，其餘可能均須透過UI下載報告再看簡易說明
-* 靜態程式碼掃描與程式碼維護性相關的細節不會顯示在UI上，須前往Sonarqube問題頁面觀看細節與解決方法教學。
-* 
-
-# Local範本開發
-此部分為Local的範本開發檔案，目前版本
-
-## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
-需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料  
-:warning: 這個專案部屬的時間會比較久，最快大約也需要3~5分鐘請慢慢等候
-``` 
-docker-compose up -d --build 
-```
-部屬包含spring API網頁 + Postman-collection(newman)自動測試, 自動測試報告結果會自動產生在`app/newman-report.xml`, 驗證後即可上傳程式碼
-### 查看部屬結果 `docker-compose ps`
-```sh
-                       Name                                     Command                  State                    Ports
-------------------------------------------------------------------------------------------------------------------------------------
-docker-spring-maraidb-restapi_adminer_1              entrypoint.sh docker-php-e ...   Up             0.0.0.0:49353->8080/tcp
-docker-spring-maraidb-restapi_db_1                   /opt/bitnami/scripts/maria ...   Up (healthy)   3306/tcp
-docker-spring-maraidb-restapi_owasp_1                bash -c  sleep 30 && zap-a ...   Exit 2
-docker-spring-maraidb-restapi_postman_collection_1   newman run /etc/postman/po ...   Exit 0
-docker-spring-maraidb-restapi_swaggereditor_1        /docker-entrypoint.sh sh / ...   Up             80/tcp, 0.0.0.0:49352->8080/tcp
-docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca ...   Up (healthy)   0.0.0.0:49355->8080/tcp
-```
-由上述結果(Name與Ports)可以查詢出部屬的網站位置(localhost可換成主機IP)
-| Name | Ports | 說明 |
-| --- | --- | --- |
-| docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過 http://localhost:49355/api/v1/employees 連線 | 
-| docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過 http://localhost:49353/api/v1/employees 連線 |
-| docker-spring-maraidb-restapi_swaggereditor_1 | 80/tcp, 0.0.0.0:49352->8080/tcp | 代表OpenAPI線上編輯器可透過 http://localhost:49352/api/v1/employees 連線 |
-### 查看與追蹤部屬的網頁伺服器紀錄Log `docker-compose logs -f web`
-可用`Ctrl+V`來離開Log追蹤
-```sh
-web_1                 |
-web_1                 |   .   ____          _            __ _ _
-web_1                 |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-web_1                 | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-web_1                 |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-web_1                 |   '  |____| .__|_| |_|_| |_\__, | / / / /
-web_1                 |  =========|_|==============|___/=/_/_/_/
-web_1                 |  :: Spring Boot ::                (v2.4.3)
-web_1                 |
-web_1                 | 2021-03-10 03:29:38.117  INFO 1 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication v0.0.1-SNAPSHOT using Java 11.0.10 on 2aedcf197dc3 with PID 1 (/usr/local/tomcat/webapps/ROOT.jar started by root in /usr/local/tomcat)
-web_1                 | 2021-03-10 03:29:38.123  INFO 1 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
-web_1                 | 2021-03-10 03:29:39.484  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-web_1                 | 2021-03-10 03:29:39.588  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 1 JPA repository interfaces.
-web_1                 | 2021-03-10 03:29:40.573  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-web_1                 | 2021-03-10 03:29:40.596  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-web_1                 | 2021-03-10 03:29:40.596  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-web_1                 | 2021-03-10 03:29:40.599  INFO 1 --- [           main] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.26] using APR path ''
-web_1                 | 2021-03-10 03:29:44.519  INFO 1 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 7.437 seconds (JVM running for 8.386)
-...................................................
-web_1                 | 2021-03-10 03:32:36.464  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-web_1                 | 2021-03-10 03:32:36.465  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-web_1                 | 2021-03-10 03:32:36.471  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-```
-### 查看與追蹤部屬的資料庫紀錄Log `docker-compose logs -f db`
-可用`Ctrl+V`來離開Log追蹤
-```sh
-db_1                  | mariadb 09:14:16.70
-db_1                  | mariadb 09:14:16.71 Welcome to the Bitnami mariadb container
-db_1                  | mariadb 09:14:16.71 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-mariadb
-db_1                  | mariadb 09:14:16.71 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-mariadb/issues
-db_1                  | mariadb 09:14:16.71
-db_1                  | mariadb 09:14:16.72 INFO  ==> ** Starting MariaDB setup **
-db_1                  | mariadb 09:14:16.74 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
-db_1                  | mariadb 09:14:16.75 INFO  ==> Initializing mariadb database
-db_1                  | mariadb 09:14:16.77 INFO  ==> Updating 'my.cnf' with custom configuration
-db_1                  | mariadb 09:14:16.78 INFO  ==> Installing database
-db_1                  | mariadb 09:14:27.30 INFO  ==> Starting mariadb in background
-db_1                  | mariadb 09:14:29.33 INFO  ==> Configuring authentication
-db_1                  | mariadb 09:14:30.27 INFO  ==> Running mysql_upgrade
-db_1                  | mariadb 09:14:43.74 INFO  ==> Stopping mariadb
-db_1                  | mariadb 09:14:44.75 INFO  ==> ** MariaDB setup finished! **
-db_1                  |
-db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
-
-```
-### 網頁資料庫管理說明
-| 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
-| --- | --- | --- | --- | --- |
-| Mysql | db | root | mypassword | springboot_demo |
-### 清除快速部屬
-| 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部屬 |
-| --- | --- |
-| docker-compose down | docker-compose down -v | 
-## 修改 Postman-collection(newman)自動測試以及owasp掃描API(OpenAPI)目標
-當執行本地環境快速專案部屬時，會自動將您的網站與資料庫部屬完成後再進行postman測試以及owasp掃描
-* Postman自動測試的檔案在`app`資料夾內的`postman_collection_local.json` 使用者可以按照開發上的需求去進行修改
-* owasp ZAP自動掃描的檔案在`app`資料夾內的`openapi_local.yaml` 使用者可以按照開發上的需求去進行修改
-:warning: 
-```
-  若您是在本地環境直接開發的話，可能會透過瀏覽器連http://localhost:8080
-  而到了json檔案內就將http://localhost:8080改成http://web:8080即可
-```
-然後執行`docker-compose up -d --build`就會自動產生postman報告與owasp ZAP掃描結果
-## (local)本地環境隔離快速專案部屬(隨機PORT) + Postman-collection(newman)自動測試 + owasp ZAP掃描
-需安裝Docker, 若在Linux環境需額外手動安裝docker-compose, 部屬內容結果應與UI相同，但不會清空資料庫資料  
-:warning: 這個專案部屬的時間會比較久，最快大約也需要3~5分鐘請慢慢等候
-``` 
-docker-compose up -d --build 
-```
-部屬包含spring API網頁 + Postman-collection(newman)自動測試, 自動測試報告結果會自動產生在`app/newman-report.xml`, 驗證後即可上傳程式碼
-### 查看部屬結果 `docker-compose ps`
-```sh
-                       Name                                     Command                  State                    Ports
-------------------------------------------------------------------------------------------------------------------------------------
-docker-spring-maraidb-restapi_adminer_1              entrypoint.sh docker-php-e ...   Up             0.0.0.0:49353->8080/tcp
-docker-spring-maraidb-restapi_db_1                   /opt/bitnami/scripts/maria ...   Up (healthy)   3306/tcp
-docker-spring-maraidb-restapi_owasp_1                bash -c  sleep 30 && zap-a ...   Exit 2
-docker-spring-maraidb-restapi_postman_collection_1   newman run /etc/postman/po ...   Exit 0
-docker-spring-maraidb-restapi_swaggereditor_1        /docker-entrypoint.sh sh / ...   Up             80/tcp, 0.0.0.0:49352->8080/tcp
-docker-spring-maraidb-restapi_web_1                  java -jar /usr/local/tomca ...   Up (healthy)   0.0.0.0:49355->8080/tcp
-```
-由上述結果(Name與Ports)可以查詢出部屬的網站位置(localhost可換成主機IP)
-| Name | Ports | 說明 |
-| --- | --- | --- |
-| docker-spring-maraidb-restapi_web_1 | 0.0.0.0:49355->8080/tcp | 代表網站可透過 http://localhost:49355/api/v1/employees 連線 | 
-| docker-spring-maraidb-restapi_adminer_1 | 0.0.0.0:49353->8080/tcp | 代表網頁資料庫管理可透過 http://localhost:49353/api/v1/employees 連線 |
-| docker-spring-maraidb-restapi_swaggereditor_1 | 80/tcp, 0.0.0.0:49352->8080/tcp | 代表OpenAPI線上編輯器可透過 http://localhost:49352/api/v1/employees 連線 |
-### 查看與追蹤部屬的網頁伺服器紀錄Log `docker-compose logs -f web`
-可用`Ctrl+V`來離開Log追蹤
-```sh
-web_1                 |
-web_1                 |   .   ____          _            __ _ _
-web_1                 |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-web_1                 | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-web_1                 |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-web_1                 |   '  |____| .__|_| |_|_| |_\__, | / / / /
-web_1                 |  =========|_|==============|___/=/_/_/_/
-web_1                 |  :: Spring Boot ::                (v2.4.3)
-web_1                 |
-web_1                 | 2021-03-10 03:29:38.117  INFO 1 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication v0.0.1-SNAPSHOT using Java 11.0.10 on 2aedcf197dc3 with PID 1 (/usr/local/tomcat/webapps/ROOT.jar started by root in /usr/local/tomcat)
-web_1                 | 2021-03-10 03:29:38.123  INFO 1 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
-web_1                 | 2021-03-10 03:29:39.484  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-web_1                 | 2021-03-10 03:29:39.588  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 1 JPA repository interfaces.
-web_1                 | 2021-03-10 03:29:40.573  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-web_1                 | 2021-03-10 03:29:40.596  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-web_1                 | 2021-03-10 03:29:40.596  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
-web_1                 | 2021-03-10 03:29:40.599  INFO 1 --- [           main] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.26] using APR path ''
-web_1                 | 2021-03-10 03:29:44.519  INFO 1 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 7.437 seconds (JVM running for 8.386)
-...................................................
-web_1                 | 2021-03-10 03:32:36.464  INFO 1 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-web_1                 | 2021-03-10 03:32:36.465  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-web_1                 | 2021-03-10 03:32:36.471  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-```
-### 查看與追蹤部屬的資料庫紀錄Log `docker-compose logs -f db`
-可用`Ctrl+V`來離開Log追蹤
-```sh
-db_1                  | mariadb 09:14:16.70
-db_1                  | mariadb 09:14:16.71 Welcome to the Bitnami mariadb container
-db_1                  | mariadb 09:14:16.71 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-mariadb
-db_1                  | mariadb 09:14:16.71 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-mariadb/issues
-db_1                  | mariadb 09:14:16.71
-db_1                  | mariadb 09:14:16.72 INFO  ==> ** Starting MariaDB setup **
-db_1                  | mariadb 09:14:16.74 INFO  ==> Validating settings in MYSQL_*/MARIADB_* env vars
-db_1                  | mariadb 09:14:16.75 INFO  ==> Initializing mariadb database
-db_1                  | mariadb 09:14:16.77 INFO  ==> Updating 'my.cnf' with custom configuration
-db_1                  | mariadb 09:14:16.78 INFO  ==> Installing database
-db_1                  | mariadb 09:14:27.30 INFO  ==> Starting mariadb in background
-db_1                  | mariadb 09:14:29.33 INFO  ==> Configuring authentication
-db_1                  | mariadb 09:14:30.27 INFO  ==> Running mysql_upgrade
-db_1                  | mariadb 09:14:43.74 INFO  ==> Stopping mariadb
-db_1                  | mariadb 09:14:44.75 INFO  ==> ** MariaDB setup finished! **
-db_1                  |
-db_1                  | mariadb 09:14:44.79 INFO  ==> ** Starting MariaDB **
-
-```
-### 網頁資料庫管理說明
-| 資料庫系統 | 伺服器 | 帳號 | 密碼 | 資料庫 |
-| --- | --- | --- | --- | --- |
-| Mysql | db | root | mypassword | springboot_demo |
-### 清除快速部屬
-| 清除儲存資料(包含資料庫資料等) | 僅關閉掉快速部屬 |
-| --- | --- |
-| docker-compose down | docker-compose down -v | 
-## 修改 Postman-collection(newman)自動測試以及owasp掃描API目標
-當執行本地環境快速專案部屬時，會自動將您的網站與資料庫部屬完成後再進行postman測試以及owasp掃描
-* Postman自動測試的檔案在`app`資料夾內的`postman_collection_local.json` 使用者可以按照開發上的需求去進行修改
-* owasp ZAP自動掃描的檔案在`app`資料夾內的`openapi_local.yaml` 使用者可以按照開發上的需求去進行修改
-:warning: 
-```
-  若您是在本地環境直接開發的話，可能會透過瀏覽器連http://localhost:8080
-  而到了json檔案內就將http://localhost:8080改成http://web:8080即可
-```
-然後執行`docker-compose up -d --build`就會自動產生postman報告與owasp ZAP掃描結果(報告可能會與UI差異很大，因為UI不支援API掃描)
+## Local範本開發
+請參考 [README.local.md](https://github.com/iiidevops-templates/spring-boot-mariadb-restapi/blob/master/README.local.md) 
 
 
 ## 教學參考來源:
