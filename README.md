@@ -45,6 +45,7 @@ spring簡易RESTAPI程式碼範例-docker
       </build>
     </profile>
   </profiles>
+```
 
 若要設定其他額外的細節也可寫在`app/pom.xml`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
 相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
