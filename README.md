@@ -45,23 +45,20 @@ spring簡易RESTAPI程式碼範例-docker
     </profile>
   </profiles>
 ```   
-### 如何啟用Sonarqube UnitTest
-在`.rancher-pipeline.yml`內修改特定段落內移除`-DskipTests`即可跳過unit Test，結果如下
+### 如何關閉Sonarqube UnitTest
+在`SonarScan`內修改特定段落內新增`-DskipTests`即可跳過unit Test，以下為跳過unit Test範例，跳過unit Test後則不會出現覆蓋率
 ```
-- name: Test--Sonarqube source code scan
-  steps:
-  - runScriptConfig:
-      image: library/maven:3.6.3-openjdk-11
-      shellScript: ls && cd app && mvn clean install && mvn clean verify sonar:sonar 
-        -Dsonar.host.url=http://sonarqube-server-service.default.svc.cluster.local:9000  
-        -Dsonar.projectName=${CICD_GIT_REPO_NAME} -Dsonar.projectKey=${CICD_GIT_REPO_NAME}
-        -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
-  when:
-    branch:
-      include:
-      - master
-      - develop
+echo '========== SonarQube(Maven) =========='
+cd app && mvn install -DskipTests &&
+mvn clean -DskipTests verify sonar:sonar -Dsonar.host.url=http://sonarqube-server-service.default:9000\
+    -Dsonar.projectName=${CICD_GIT_REPO_NAME} -Dsonar.projectKey=${CICD_GIT_REPO_NAME}\
+    -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}\
+	-Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
+	-Dsonar.login=$SONAR_TOKEN
 ```
+jacoco Coverage 參考說明
+https://dzone.com/articles/reporting-code-coverage-using-maven-and-jacoco-plu
+https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-Report-in-VSCode
 
 若要設定其他額外的細節也可寫在`app/pom.xml`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
 相關可用額外參數說明可參考[sonarscanner-for-maven](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/)
