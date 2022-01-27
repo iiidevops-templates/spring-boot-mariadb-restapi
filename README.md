@@ -117,12 +117,12 @@ spring.datasource.password=${db_password}
 若實際開發使用並非maven:3.6.3 JDK15, 請至`Dockefile`修改為自己想要的版本(如需要本機上做測試則須一併連同`Dockerfile.local`去做修改)
 
 ## iiidevops
-* 專案內`.rancher-pipeline.yml`除非已很了解 yml 與 rancher pipeline 的語法, 否則更動後可能會造成 pipeline 無法正常運作
-* 目前此範本依照 tomcat 預設服務定義 port:8080，如果需要更改其他 port , 就需要將 `.rancher-pipeline.yml` 內所有 web.port: 定義的 port 號。
-* `iiidevops`資料夾內
-  * `postman`資料夾內則是devops整合API測試(postman)的自動測試檔案放置目錄，devops系統會以`postman`資料夾內 postman_collection.json 檔案做自動測試
-  * `sideex`資料夾內則是devops整合Web測試(sideex)的自動測試檔案放置目錄，devops系統會以`sideex`資料夾內 sideex 匯出的 json 檔案做自動測試
-* `Dockerfile`內加上前墜dockerhub，是為使image能透過本地端harbor擔任Image Proxy去抓取出Docker Hub的Images
+* 專案內`.rancher-pipeline.yml`是 pipeline 的定義檔, 除非對 yml 與 rancher pipeline 的語法有足夠的了解, 否則建議不要隨意對內容進行更動, 有可能會造成 pipeline 無法正常運作
+* 目前範本是依照 tomcat 預設服務的定義 port:8080 設定服務 port 號，如果您的程式需要更改使用其他 port 號 , 請將 `.rancher-pipeline.yml` 內所有 web.port: 所定義的 8080 改成您實際需要的 port 號。
+* `iiidevops`資料夾
+  * `postman`資料夾內是devops整合API測試工具(postman)的自動測試檔案放置目錄，devops系統會以`postman`資料夾內 postman_collection.json 的檔案內容進行自動測試
+  * `sideex`資料夾內則是devops整合Web測試工具(sideex)的自動測試檔案放置目錄，devops系統會以`sideex`資料夾內 sideex 匯出的 json 檔案內容進行自動測試
+* `Dockerfile`內加上前置dockerhub，是為使image能透過本地端harbor擔任Image Proxy的方式抓取Docker Hub上的Images，增加不同專案抓取相同 Image 的效率
 
 ## Local範本開發
 請參考 [README.local.md](https://github.com/iiidevops-templates/spring-boot-mariadb-restapi/blob/master/README.local.md) 
