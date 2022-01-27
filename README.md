@@ -55,20 +55,19 @@ spring簡易RESTAPI程式碼範例-docker
 
 | 型態 | 名稱 | 說明 | 路徑 |
 | --- | --- | --- | --- |
-| 檔案 | .rancher-pipeline.yml | :warning: (不可更動)devops系統所需檔案 | 根目錄 |
-| 檔案 | docker-compose.yaml | (可調整)本地端快速部署使用 | 根目錄 |
-| 檔案 | Dockerfile | (可調整)devops k8s環境部署檔案 | 根目錄 |
-| 檔案 | Dockerfile.local | (可調整)本地端部署使用 | 根目錄 |
-| 檔案 | README.local.md | 本地端使用說明文件 | 根目錄 |
-| 檔案 | README.md | 本說明文件 | 根目錄 |
-| 檔案 | SonarScan | (可調整)整合SonarQube執行檔案 | 根目錄 |
-| 檔案 | spring-mariadb-restapi.sql | (選擇性)資料庫初始匯入檔案，可為任意檔案名稱，副檔名.sql | 根目錄 |
 | 資料夾 | app | 專案主要程式碼 | 根目錄 |
+| 資料夾 | iiidevops | :warning: devops系統測試所需檔案 | 根目錄 |
+| 檔案 | spring-mariadb-restapi.sql | (選擇性)請務必放在根目錄, 其為資料庫初始匯入檔案，可為任意檔案名稱，副檔名.sql| 根目錄 |
+| 檔案 | .rancher-pipeline.yml | :warning: pipeline 的定義檔, 除非對 yml 與 rancher pipeline 的語法有足夠的了解, 否則建議不要隨意對內容進行更動, 有可能會造成 pipeline 無法正常運作 | 根目錄 |
+| 檔案 | Dockerfile | (可調整)devops k8s環境部署檔案 | 根目錄 |
+| 檔案 | SonarScan | (可調整)整合SonarQube執行檔案 | 根目錄 |
+| 檔案 | docker-compose.yaml | (非必要)本地端快速部署使用 | 根目錄 |
+| 檔案 | Dockerfile.local | (非必要)本地端部署使用 | 根目錄 |
+| 檔案 | README.local.md | (非必要) 本地端使用說明文件 | 根目錄 |
 | 檔案 | postman_collection_local.json | (可調整)本地端快速部署使用(Postman collection) | app |
 | 檔案 | openapi_local.yaml | (可調整)本地端快速部署使用(openAPI文件) | app |
 | 檔案 | newman-report.xml | (自動產生)Postman collection本地端測試報告 | app |
 | 檔案 | owasp-report.md | (自動產生)owasp ZAP-本地端掃描測試報告 | app |
-| 資料夾 | iiidevops | :warning: devops系統測試所需檔案 | 根目錄 |
 | 檔案 | app.env | (可調整)提供實證環境之環境變數(env)定義檔 | iiidevops |
 | 檔案 | app.env.develop | (可調整)提供特定分支(develop)實證環境之環境變數(env)定義檔 | iiidevops |
 | 檔案 | pipeline_settings.json | :warning: (不可更動)devops系統測試所需檔案 | iiidevops |
