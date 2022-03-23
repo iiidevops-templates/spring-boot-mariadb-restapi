@@ -12,12 +12,6 @@ stages:
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
-  when:
-    branch:
-      include:
-      - master
-      - develop
-
 - name: Test--SonarQube for Java(Maven)
   iiidevops: sonarqube
   steps:
@@ -169,10 +163,11 @@ stages:
         web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
         web.port: 8080
         kube.ingress.base_domain: ingress-dev3.iiidevops.org
+        kube.ingress.proxy_body_size: 1m
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.5.9
+      version: 0.5.10
   when:
     branch:
       include:

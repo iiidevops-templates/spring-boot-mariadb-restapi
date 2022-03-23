@@ -1,6 +1,6 @@
 {
   "name": "Java-Spring Boot(Maven)-MariaDB",
-  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API範本說明</a><hr size=1 />  <li><b>v1.13</b>:支援 SonarQube 8.9 功能與可指定 harbor.host 功能, 整合 Android APK 黑箱掃描 CMAS 工具  <li><b>v1.12</b>:增加執行重設 Rancher APP 與剖析 git 訊息功能  <li><b>v1.11</b>:預設只開啟SonarQube掃描功能",
+  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API 範本說明</a><hr size=1 />  <li><b>v1.15</b>:支援Web部署上傳檔案大小設定(預設1MB)  <li><b>v1.13</b>:支援 SonarQube 8.9 功能與可指定 harbor.host 功能, 整合 Android APK 黑箱掃描 CMAS 工具",
   "arguments": [
     {
       "key": "db.username",
