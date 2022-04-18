@@ -12,24 +12,22 @@ stages:
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
-- name: Test--SonarQube for Java(Maven)
+- name: Test--SonarQube source code scan for Java(Maven)
   iiidevops: sonarqube
   steps:
-  - envFrom:
-    - sourceKey: API_TOKEN
-      sourceName: pipeline-api-key
-      targetKey: rancher_api_token
-    - sourceKey: rancher-url
-      sourceName: rancher
-      targetKey: rancher_url
-    runScriptConfig:
-      image: library/maven:3.6.3-openjdk-11
-      shellScript: chmod 777 SonarScan; ./SonarScan
-  when:
-    branch:
-      include:
-      - master
-      - develop
+  - applyAppConfig:
+      answers:
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        harbor.host: harbor-dev3.iiidevops.org
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        maven.enabled: true
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.2.4
 
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
