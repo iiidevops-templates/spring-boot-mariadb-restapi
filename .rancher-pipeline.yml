@@ -52,7 +52,6 @@ stages:
     branch:
       include:
       - skip-master
-      - master
 - name: Deploy--DB
   iiidevops: deployed-environments
   steps:
@@ -219,7 +218,6 @@ stages:
     branch:
       include:
       - skip-master
-      - master
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -261,7 +259,6 @@ stages:
     branch:
       include:
       - skip-master
-      - master
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -283,4 +280,3 @@ stages:
     branch:
       include:
       - skip-master
-      - master
