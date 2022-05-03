@@ -1,12 +1,11 @@
-package com.example.demo;
+package com.example.springboot;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.example.demo.Employee;
-import com.example.demo.EmployeeController;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-class DemoApplicationTests {
+class HelloControllerTest {
+
 	@Autowired
 	private MockMvc mvc;
 
@@ -29,5 +26,4 @@ class DemoApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(equalTo("Greetings from Spring Boot!")));
 	}
-
 }

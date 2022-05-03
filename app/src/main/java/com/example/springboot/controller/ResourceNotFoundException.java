@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.springboot.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

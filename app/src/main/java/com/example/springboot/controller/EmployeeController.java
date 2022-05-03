@@ -1,9 +1,12 @@
-package com.example.demo;
+package com.example.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.springboot.model.Employee;
+import com.example.springboot.repository.EmployeeRepository;
 
 import javax.validation.Valid;
 import java.util.HashMap;
