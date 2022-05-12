@@ -24,6 +24,6 @@ class HelloControllerTest {
 	void getHello() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("Greetings from Spring Boot!")));
+				.andExpect(content().string(equalTo("Greetings from Spring Boot - RESTful API Sample project! <a href='https://github.com/iiidevops-templates/spring-boot-mariadb-restapi/blob/master/README.md'>Click for more information</a>")));
 	}
 }
