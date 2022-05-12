@@ -94,6 +94,7 @@ stages:
     branch:
       include:
       - skip-master
+      - master
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -118,6 +119,7 @@ stages:
     branch:
       include:
       - skip-master
+      - master
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -137,6 +139,7 @@ stages:
     branch:
       include:
       - skip-master
+      - master
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -165,6 +168,7 @@ stages:
     branch:
       include:
       - skip-master
+      - master
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -187,6 +191,7 @@ stages:
     branch:
       include:
       - skip-master
+      - master
 - name: Test--ZAP
   iiidevops: zap
   steps:
