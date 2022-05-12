@@ -12,47 +12,6 @@ stages:
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
-- name: Test--SonarQube for Java(Maven)
-  iiidevops: sonarqube
-  steps:
-  - applyAppConfig:
-      answers:
-        git.branch: ${CICD_GIT_BRANCH}
-        git.commitID: ${CICD_GIT_COMMIT}
-        git.repoName: ${CICD_GIT_REPO_NAME}
-        git.url: ${CICD_GIT_URL}
-        harbor.host: harbor-dev3.iiidevops.org
-        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-        maven.enabled: true
-      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
-      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
-      targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.4
-  when:
-    branch:
-      include:
-      - master
-      - develop
-- name: Test--Checkmarx source code scan
-  iiidevops: checkmarx
-  steps:
-  - applyAppConfig:
-      answers:
-        git.branch: ${CICD_GIT_BRANCH}
-        git.commitID: ${CICD_GIT_COMMIT}
-        git.repoName: ${CICD_GIT_REPO_NAME}
-        git.url: ${CICD_GIT_URL}
-        harbor.host: harbor-dev3.iiidevops.org
-        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-checkmarx
-      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
-      targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.1
-  when:
-    branch:
-      include:
-      - skip-master
-      - master
 - name: Deploy--DB
   iiidevops: deployed-environments
   steps:
@@ -101,6 +60,51 @@ stages:
       include:
       - skip-master
       - master
+- name: Test--SonarQube for Java(Maven)
+  iiidevops: sonarqube
+  steps:
+  - applyAppConfig:
+      answers:
+        db.name: todo_db
+        db.password: templatePassword
+        db.releaseName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+        db.username: iiidevops
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        harbor.host: harbor-dev3.iiidevops.org
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+        maven.enabled: true
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.2.5
+  when:
+    branch:
+      include:
+      - master
+      - develop
+- name: Test--Checkmarx source code scan
+  iiidevops: checkmarx
+  steps:
+  - applyAppConfig:
+      answers:
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        harbor.host: harbor-dev3.iiidevops.org
+        pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
+      catalogTemplate: cattle-global-data:iii-dev-charts3-scan-checkmarx
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.2.1
+  when:
+    branch:
+      include:
+      - skip-master
+
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
