@@ -12,53 +12,11 @@ stages:
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
-- name: Deploy--DB
-  iiidevops: deployed-db
-  steps:
-  - applyAppConfig:
-      answers:
-        db.gui: true
-        db.name: todo_db
-        db.password: templatePassword
-        db.tag: 10.5
-        db.type: mariadb
-        db.username: iiidevops
-        git.branch: ${CICD_GIT_BRANCH}
-        git.commitID: ${CICD_GIT_COMMIT}
-        git.repoName: ${CICD_GIT_REPO_NAME}
-        git.url: ${CICD_GIT_URL}
-        harbor.host: harbor-dev3.iiidevops.org
-      catalogTemplate: cattle-global-data:iii-dev-charts3-db
-      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
-      targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.3
-- name: Deploy--Wait DB deployment
-  iiidevops: deployed-db
-  steps:
-  - env:
-      deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
-      max_wait: 128
-      namespace: ${CICD_GIT_REPO_NAME}
-    envFrom:
-    - sourceKey: API_TOKEN
-      sourceName: pipeline-api-key
-      targetKey: rancher_api_token
-    - sourceKey: rancher-url
-      sourceName: rancher
-      targetKey: rancher_url
-    runScriptConfig:
-      image: iiiorg/deployment-waiter:0.0.2
-      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
-        bash /app/run.sh
 - name: Test--SonarQube for Java(Maven)
   iiidevops: sonarqube
   steps:
   - applyAppConfig:
       answers:
-        db.name: todo_db
-        db.password: templatePassword
-        db.releaseName: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
-        db.username: iiidevops
         git.branch: ${CICD_GIT_BRANCH}
         git.commitID: ${CICD_GIT_COMMIT}
         git.repoName: ${CICD_GIT_REPO_NAME}
@@ -69,7 +27,7 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.5
+      version: 0.2.4
   when:
     branch:
       include:
@@ -90,6 +48,52 @@ stages:
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
       targetNamespace: ${CICD_GIT_REPO_NAME}
       version: 0.2.1
+  when:
+    branch:
+      include:
+      - skip-master
+- name: Deploy--DB
+  iiidevops: deployed-environments
+  steps:
+  - applyAppConfig:
+      answers:
+        db.gui: true
+        db.name: todo_db
+        db.password: templatePassword
+        db.tag: 10.5
+        db.type: mariadb
+        db.username: iiidevops
+        git.branch: ${CICD_GIT_BRANCH}
+        git.commitID: ${CICD_GIT_COMMIT}
+        git.repoName: ${CICD_GIT_REPO_NAME}
+        git.url: ${CICD_GIT_URL}
+        harbor.host: harbor-dev3.iiidevops.org
+      catalogTemplate: cattle-global-data:iii-dev-charts3-db
+      name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+      targetNamespace: ${CICD_GIT_REPO_NAME}
+      version: 0.3.3
+  when:
+    branch:
+      include:
+      - skip-master
+- name: Deploy--Wait DB deployment
+  iiidevops: deployed-environments
+  steps:
+  - env:
+      deploy_name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
+      max_wait: 128
+      namespace: ${CICD_GIT_REPO_NAME}
+    envFrom:
+    - sourceKey: API_TOKEN
+      sourceName: pipeline-api-key
+      targetKey: rancher_api_token
+    - sourceKey: rancher-url
+      sourceName: rancher
+      targetKey: rancher_url
+    runScriptConfig:
+      image: iiiorg/deployment-waiter:0.0.2
+      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
+        bash /app/run.sh
   when:
     branch:
       include:
@@ -118,7 +122,6 @@ stages:
     branch:
       include:
       - skip-master
-      - master
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -138,7 +141,21 @@ stages:
     branch:
       include:
       - skip-master
-      - master
+- name: Build--Scan docker image
+  iiidevops: deployed-environments
+  steps:
+  - envFrom:
+    - sourceKey: api-origin
+      sourceName: nexus
+      targetKey: api_origin
+    runScriptConfig:
+      image: iiiorg/rancher-cli:v2.4.6
+      shellScript: curl --location -s --request POST ${api_origin}/v2/harbor/${CICD_GIT_REPO_NAME}/scan
+        --form branch=${CICD_GIT_BRANCH} --form commit_id=${CICD_GIT_COMMIT}
+  when:
+    branch:
+      include:
+      - skip-master
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -162,12 +179,11 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.5.10
+      version: 0.5.12
   when:
     branch:
       include:
       - skip-master
-      - master
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -190,7 +206,6 @@ stages:
     branch:
       include:
       - skip-master
-      - master
 - name: Test--ZAP
   iiidevops: zap
   steps:
