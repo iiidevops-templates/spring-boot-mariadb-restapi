@@ -12,8 +12,8 @@ stages:
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
         --form project_name=${CICD_GIT_REPO_NAME}
-- name: Deploy--DB
-  iiidevops: deployed-environments
+- name: Deploy--DB(MariaDB)
+  iiidevops: deployed-db
   steps:
   - applyAppConfig:
       answers:
@@ -32,10 +32,6 @@ stages:
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
       version: 0.3.3
-  when:
-    branch:
-      include:
-      - skip-master
 - name: Deploy--Wait DB deployment
   iiidevops: deployed-environments
   steps:
