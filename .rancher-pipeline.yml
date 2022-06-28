@@ -28,10 +28,14 @@ stages:
         git.repoName: ${CICD_GIT_REPO_NAME}
         git.url: ${CICD_GIT_URL}
         harbor.host: harbor-dev3.iiidevops.org
+        volumeMounts.nfs.enabled: false
+        volumeMounts.nfs.server: 10.20.0.100
+        volumeMounts.project : ${CICD_GIT_REPO_NAME}
+        volumeMounts.uuid : fd09f2da-b212-11ec-9a09-5ed3230a7360
       catalogTemplate: cattle-global-data:iii-dev-charts3-db
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.3
+      version: 0.3.5
 - name: Deploy--Wait DB deployment(MariaDB)
   iiidevops: deployed-db
   steps:
@@ -172,10 +176,15 @@ stages:
         web.port: 8080
         kube.ingress.base_domain: ingress-dev3.iiidevops.org
         kube.ingress.proxy_body_size: 1m
+        volumeMounts.nfs.enabled: false
+        volumeMounts.nfs.server: 10.20.0.100
+        volumeMounts.project: ${CICD_GIT_REPO_NAME}
+        volumeMounts.uuid : fca2b994-b212-11ec-9a09-5ed3230a7360
+        volumeMounts.mountPath: '/usr/src/app/files'        
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.5.12
+      version: 0.5.13
   when:
     branch:
       include:
