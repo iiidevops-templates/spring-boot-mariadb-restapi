@@ -1,6 +1,6 @@
 {
   "name": "Java-Spring Boot(Maven)-MariaDB",
-  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API 範本說明</a><hr /><ul>  <li><strong>v1.18</strong>:調整 Web DB chart 支援掛載 NFS Volume 參數</li>  <li><strong>v1.17</strong>:增加掃描 docker Image 功能, Web chart 支援掛載 Volume</li>  <li><strong>v1.16</strong>:SonarQube均改用 helm chart 架構, Postman POD 名稱加上 git hash</li></ul>",
+  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API 範本說明</a><hr />  <li><strong>v1.18</strong>:調整 Web DB chart 支援掛載 NFS Volume 參數</li>  <li><strong>v1.17</strong>:增加掃描 docker Image 功能, Web chart 支援掛載 Volume</li>  <li><strong>v1.16</strong>:SonarQube均改用 helm chart 架構, Postman POD 名稱加上 git hash</li>",
   "arguments": [
     {
       "key": "db.username",
