@@ -30,8 +30,8 @@ stages:
         harbor.host: harbor-dev3.iiidevops.org
         volumeMounts.nfs.enabled: false
         volumeMounts.nfs.server: 10.20.0.100
-        volumeMounts.project : ${CICD_GIT_REPO_NAME}
-        volumeMounts.uuid : fd09f2da-b212-11ec-9a09-5ed3230a7360
+        volumeMounts.project: ${CICD_GIT_REPO_NAME}
+        volumeMounts.uuid: fd09f2da-b212-11ec-9a09-5ed3230a7360
       catalogTemplate: cattle-global-data:iii-dev-charts3-db
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
@@ -78,7 +78,6 @@ stages:
     branch:
       include:
       - master
-      - develop
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -97,7 +96,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -121,7 +120,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -140,7 +139,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Build--Scan docker image
   iiidevops: deployed-environments
   steps:
@@ -155,7 +154,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -179,8 +178,8 @@ stages:
         volumeMounts.nfs.enabled: false
         volumeMounts.nfs.server: 10.20.0.100
         volumeMounts.project: ${CICD_GIT_REPO_NAME}
-        volumeMounts.uuid : fca2b994-b212-11ec-9a09-5ed3230a7360
-        volumeMounts.mountPath: '/usr/src/app/files'        
+        volumeMounts.uuid: fca2b994-b212-11ec-9a09-5ed3230a7360
+        volumeMounts.mountPath: /usr/src/app/files
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
@@ -188,7 +187,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -210,7 +209,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -231,7 +230,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -272,7 +271,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -293,4 +292,4 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - master
