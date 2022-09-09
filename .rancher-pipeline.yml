@@ -7,7 +7,7 @@ stages:
       sourceName: nexus
       targetKey: api_origin
     runScriptConfig:
-      image: iiiorg/iiidevops-cli:0.0.1
+      image: iiiorg/rancher-cli:1.0.1
       shellScript: curl --location -s --request POST ${api_origin}/rancher/delete_app
         --form project_name=${CICD_GIT_REPO_NAME} --form branch_name=${CICD_GIT_BRANCH}
         && curl --location -s --request POST ${api_origin}/project/issues_commit_by_name
@@ -30,8 +30,8 @@ stages:
         harbor.host: harbor-dev3.iiidevops.org
         volumeMounts.nfs.enabled: false
         volumeMounts.nfs.server: 10.20.0.100
-        volumeMounts.project : ${CICD_GIT_REPO_NAME}
-        volumeMounts.uuid : fd09f2da-b212-11ec-9a09-5ed3230a7360
+        volumeMounts.project: ${CICD_GIT_REPO_NAME}
+        volumeMounts.uuid: fd09f2da-b212-11ec-9a09-5ed3230a7360
       catalogTemplate: cattle-global-data:iii-dev-charts3-db
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
@@ -179,8 +179,8 @@ stages:
         volumeMounts.nfs.enabled: false
         volumeMounts.nfs.server: 10.20.0.100
         volumeMounts.project: ${CICD_GIT_REPO_NAME}
-        volumeMounts.uuid : fca2b994-b212-11ec-9a09-5ed3230a7360
-        volumeMounts.mountPath: '/usr/src/app/files'        
+        volumeMounts.uuid: fca2b994-b212-11ec-9a09-5ed3230a7360
+        volumeMounts.mountPath: /usr/src/app/files
       catalogTemplate: cattle-global-data:iii-dev-charts3-web
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
       targetNamespace: ${CICD_GIT_REPO_NAME}
