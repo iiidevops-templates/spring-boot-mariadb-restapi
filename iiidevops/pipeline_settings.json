@@ -1,6 +1,6 @@
 {
   "name": "Java-Spring Boot(Maven)-MariaDB",
-  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API 範本說明</a><hr /><ul>  <li><strong>v1.20</strong>:整合 rancher-cli 與 deployment-wait 至 iiidevops-cli</li>  <li><strong>v1.19</strong>:增加自動計算原始碼行數功能</li>  <li><strong>v1.18</strong>:調整 Web DB chart 支援掛載 NFS Volume 參數</li></ul>",
+  "description": "Spring 2.4.3 / Maven 3.6.3 Jdk15 / Tomcat JDK11 / Mariadb: 10.5 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/spring-maraidb-restapi/blob/master/README.md' target='_blank'>RESTful API 範本說明</a><hr /><ul>  <li><strong>v1.26</strong>:增加定義 SonarQube 與 Checkmarx 黑白名單功能</li>  <li><strong>v1.20</strong>:整合 rancher-cli 與 deployment-wait 至 iiidevops-cli</li>  <li><strong>v1.19</strong>:增加自動計算原始碼行數功能</li></ul>",
   "arguments": [
     {
       "key": "db.username",
