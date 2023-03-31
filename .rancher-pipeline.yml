@@ -36,6 +36,10 @@ stages:
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
       version: 0.3.5
+  when:
+    branch:
+      include:
+      - skip
 - name: Deploy--Wait DB deployment(MariaDB)
   iiidevops: deployed-db
   steps:
@@ -54,6 +58,10 @@ stages:
       image: iiiorg/iiidevops-cli:0.0.1
       shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
         deploy-wait.pl
+  when:
+    branch:
+      include:
+      - skip
 - name: Test--SonarQube for Java(Maven)
   iiidevops: sonarqube
   steps:
@@ -78,7 +86,6 @@ stages:
     branch:
       include:
       - master
-      - develop
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -97,7 +104,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -121,7 +128,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -140,7 +147,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Build--Scan docker image
   iiidevops: deployed-environments
   steps:
@@ -155,7 +162,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -188,7 +195,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -210,7 +217,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Test--Anchore SBOM
   iiidevops: anchore
   steps:
@@ -230,7 +237,7 @@ stages:
   when:
     branch:
       include:
-      - master
+      - skip
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -251,7 +258,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -292,7 +299,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -313,4 +320,4 @@ stages:
   when:
     branch:
       include:
-      - skip-master
+      - skip
