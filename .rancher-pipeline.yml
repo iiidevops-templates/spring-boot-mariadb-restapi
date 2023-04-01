@@ -36,10 +36,6 @@ stages:
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-db
       targetNamespace: ${CICD_GIT_REPO_NAME}
       version: 0.3.5
-  when:
-    branch:
-      include:
-      - master
 - name: Deploy--Wait DB deployment(MariaDB)
   iiidevops: deployed-db
   steps:
@@ -58,10 +54,6 @@ stages:
       image: iiiorg/iiidevops-cli:0.0.1
       shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify;
         deploy-wait.pl
-  when:
-    branch:
-      include:
-      - master
 - name: Test--SonarQube for Java(Maven)
   iiidevops: sonarqube
   steps:
@@ -77,15 +69,16 @@ stages:
         git.url: ${CICD_GIT_URL}
         harbor.host: harbor-dev3.iiidevops.org
         pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-        type: maven
+        maven.enabled: true
       catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.1
+      version: 0.2.5
   when:
     branch:
       include:
       - master
+      - develop
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -100,11 +93,11 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-scan-checkmarx
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-cmx
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.3.1
+      version: 0.2.2
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -128,7 +121,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -147,7 +140,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Build--Scan docker image
   iiidevops: deployed-environments
   steps:
@@ -162,7 +155,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Deploy--Web including DB config
   iiidevops: deployed-environments
   steps:
@@ -195,7 +188,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -217,7 +210,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Test--Anchore SBOM
   iiidevops: anchore
   steps:
@@ -237,7 +230,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - master
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -258,7 +251,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -299,7 +292,7 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -320,4 +313,4 @@ stages:
   when:
     branch:
       include:
-      - skip
+      - skip-master
