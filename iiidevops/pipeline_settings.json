@@ -11,7 +11,7 @@
     {
       "key": "db.password",
       "display": "DB Password",
-      "default_value": "templatePassword",
+      "default_value": "DevOps_123",
       "input_type": "password"
     },
     {
